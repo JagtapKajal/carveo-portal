@@ -2,6 +2,8 @@ package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
