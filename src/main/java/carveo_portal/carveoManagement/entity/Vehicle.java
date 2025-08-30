@@ -12,8 +12,10 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(nullable = false, unique = true)
     private String registrationNumber;
 
+    @Column(nullable = false)
     private String vName;
 
     private String color;
@@ -23,10 +25,12 @@ public class Vehicle {
     @Column(nullable = false)
     private VehicleType vehicleType;
 
+    @Column(nullable = false)
     private LocalDateTime associationActivatedAt;
 
     private LocalDateTime getAssociationDeactivatedAt;
 
+    @Column(nullable = false)
     private boolean isVehicleActive;
 
     // Many vehicles can belong to one resident

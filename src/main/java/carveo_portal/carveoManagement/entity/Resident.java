@@ -16,14 +16,21 @@ public class Resident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+
+    @Column(nullable = false)
     private String fName;
 
+
+    @Column(nullable = false)
     private String lName;
 
+    @Column(nullable = false, unique = true)
     private String flatNo;
 
+    @Column(nullable = false, unique = true)
     private long mobileNo;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
