@@ -1,4 +1,7 @@
 package carveo_portal.carveoManagement.enums;
 
-public class VehicleType {
+public enum VehicleType {
+    CAR,
+    MOPED,
+    BIKE
 }
