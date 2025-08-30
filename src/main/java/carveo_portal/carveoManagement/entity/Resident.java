@@ -10,6 +10,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "residents")
+@Getter
+@Setter
 public class Resident {
 
     @Id
@@ -43,67 +45,4 @@ public class Resident {
 
     //--- Getters and Setters---//
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getfName() {
-        return fName;
-    }
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
-
-    public String getFlatNo() {
-        return flatNo;
-    }
-
-    public void setFlatNo(String flatNo) {
-        this.flatNo = flatNo;
-    }
-
-    public long getMobileNo() {
-        return mobileNo;
-    }
-
-    public void setMobileNo(long mobileNo) {
-        this.mobileNo = mobileNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public ResidentType getResidentType() {
-        return residentType;
-    }
-
-    public void setResidentType(ResidentType residentType) {
-        this.residentType = residentType;
-    }
-
-    public List<Vehicle> getVehicleList() {
-        return vehicleList;
-    }
-
-    public void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
-    }
 }
