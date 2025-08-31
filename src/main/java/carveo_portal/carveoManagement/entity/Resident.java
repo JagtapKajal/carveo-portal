@@ -2,47 +2,48 @@ package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "residents")
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Resident {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-
-    @Column(nullable = false)
-    private String fName;
-
+    private Long id;
 
     @Column(nullable = false)
-    private String lName;
+    private String fname;
+
+    @Column(nullable = false)
+    private String lname;
 
     @Column(nullable = false, unique = true)
-    private String flatNo;
+    private String flatno;
 
     @Column(nullable = false, unique = true)
-    private long mobileNo;
+    private long mobileno;
 
     @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ResidentType residentType; // TENANT or OWNER
-
+    private ResidentType residenttype;
 
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Vehicle> vehicleList = new ArrayList<>();
 
-    //--- Getters and Setters---//
-
+    public void addVehicle(Vehicle vehicle) {
+        vehicle.setResident(this);
+        this.vehicleList.add(vehicle);
+    }
 }
