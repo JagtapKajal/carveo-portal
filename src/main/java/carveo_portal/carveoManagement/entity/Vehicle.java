@@ -2,47 +2,42 @@ package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.VehicleType;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Setter
+@Table(name = "vehicle")
 @Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Vehicle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false, unique = true)
-    private String registrationNumber;
+    private String registrationnumber;
 
     @Column(nullable = false)
-    private String vName;
+    private String vname;
 
     private String color;
 
-    // stores CAR/MOPED/BIKE as string in DB
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private VehicleType vehicleType;
+    private VehicleType type; // CAR / MOPED / BIKE
+
+    private LocalDateTime associationactivatedat;
+
+    private LocalDateTime associationdeactivatedat;
 
     @Column(nullable = false)
-    private LocalDateTime associationActivatedAt;
+    private boolean isvehicleactive;
 
-    private LocalDateTime getAssociationDeactivatedAt;
-
-    @Column(nullable = false)
-    private boolean isVehicleActive;
-
-    // Many vehicles can belong to one resident
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "resident_id", nullable = false)
     private Resident resident;
-
-
-    //---Getters and Setters---//
-
 }
