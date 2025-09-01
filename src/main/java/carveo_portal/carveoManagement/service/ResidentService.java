@@ -33,4 +33,13 @@ public class ResidentService {
     public Optional<Resident> getResidentById(int id){
         return residentRepository.findById(id);
     }
+
+    public List<Resident> getAllResident(){
+        return residentRepository.findAll();
+    }
+
+    public Resident getResidentByFnameAndLname(String fname, String lname) {
+        return residentRepository.findByFnameAndLname(fname, lname);
+    }
+
 }
