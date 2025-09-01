@@ -2,6 +2,7 @@ package carveo_portal.carveoManagement.service;
 
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
+import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
 import carveo_portal.carveoManagement.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,10 +39,10 @@ public class VehicleService {
             return ResponseEntity.badRequest().body("Resident not found, cannot assign vehicle.");
         }
 
-        // Assign proper resident
         vehicle.setResident(residentOpt.get());
 
         Vehicle savedVehicle = vehicleRepository.save(vehicle);
         return ResponseEntity.ok(savedVehicle);
     }
+
 }
