@@ -15,7 +15,7 @@ public class ResidentController {
 
     private final ResidentService residentService;
 
-    public ResidentController(ResidentService residentService){
+    public ResidentController(ResidentService residentService) {
         this.residentService = residentService;
     }
 
@@ -33,8 +33,8 @@ public class ResidentController {
     }
 
     @GetMapping("/ResidentById/{id}")
-    public Resident getResidentById(@PathVariable int id){
-        return residentService.getResidentById(id).orElseThrow(()-> new ResourceNotFoundException("Resident not found with id: " +id));
+    public Resident getResidentById(@PathVariable int id) {
+        return residentService.getResidentById(id).orElseThrow(() -> new ResourceNotFoundException("Resident not found with id: " + id));
     }
 
     @GetMapping("/getAllResident")
@@ -62,5 +62,6 @@ public class ResidentController {
         }
         return ResponseEntity.ok(resident);
     }
+
 }
 
