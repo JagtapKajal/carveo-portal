@@ -63,5 +63,9 @@ public class ResidentController {
         return ResponseEntity.ok(resident);
     }
 
+    @GetMapping("/getByRegNum/{regNum}")
+    public Resident getResidentByRegNum(@PathVariable String regNum){
+        return residentService.getResidentByRegistrationNumber(regNum);
+    }
 }
 
