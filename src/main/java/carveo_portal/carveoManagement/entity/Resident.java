@@ -1,6 +1,7 @@
 package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +41,7 @@ public class Resident {
     private ResidentType residenttype;
 
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     public void addVehicle(Vehicle vehicle) {
