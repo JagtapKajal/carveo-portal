@@ -2,7 +2,9 @@ package carveo_portal.carveoManagement.service;
 
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
+import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
+import carveo_portal.carveoManagement.repository.VehicleRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -41,5 +43,6 @@ public class ResidentService {
     public Resident getResidentByFnameAndLname(String fname, String lname) {
         return residentRepository.findByFnameAndLname(fname, lname);
     }
+
 
 }
