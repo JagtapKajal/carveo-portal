@@ -83,6 +83,17 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<!-- Git Changelog Plugin -->
+			<plugin>
+				<groupId>se.bjurr.gitchangelog</groupId>
+				<artifactId>git-changelog-maven-plugin</artifactId>
+				<version>1.76</version> <!-- Latest version -->
+				<configuration>
+					<fromRef>HEAD~20</fromRef> <!-- last 20 commits -->
+					<toRef>HEAD</toRef>
+					<file>CHANGELOG.md</file>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>
