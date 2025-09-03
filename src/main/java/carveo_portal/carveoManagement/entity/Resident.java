@@ -4,6 +4,7 @@ import carveo_portal.carveoManagement.enums.ResidentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +25,7 @@ public class Resident {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotEmpty(message = "Firstname is required")
     @Column(nullable = false)
     private String fname;
 
@@ -36,7 +38,7 @@ public class Resident {
     @Column(nullable = false, unique = true)
     private long mobileno;
 
-    @Column(nullable = false, unique = true)
+   @NotEmpty(message = "Email is Required")
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -51,4 +53,6 @@ public class Resident {
         vehicle.setResident(this);
         this.vehicleList.add(vehicle);
     }
+
+
 }
