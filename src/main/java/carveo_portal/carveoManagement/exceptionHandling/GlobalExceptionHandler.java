@@ -16,15 +16,14 @@ import java.util.Map;
 @RestController
 public class GlobalExceptionHandler {
 
+    // Exception to handle invalid registration number
     @ExceptionHandler(InvalidRegistrationNumberException.class)
     public ResponseEntity<Map<String, String>> handleBadRequest(InvalidRegistrationNumberException ex) {
         return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 
-    //Handle Validation errors of Visitors
-
-    // handle Bean Validation errors
+    //Handle Validation errors of Visitor
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
         Map<String, String> errors = new HashMap<>();
