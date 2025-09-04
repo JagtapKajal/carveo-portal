@@ -4,6 +4,7 @@ import carveo_portal.carveoManagement.enums.VehicleType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -21,7 +22,7 @@ public class Vehicle {
     private Long id;
 
     @Column(nullable = false, unique = true)
-   @NotBlank(message = "Registration number is required ")
+   @NotEmpty(message = "Registration number is required .....")
     private String registrationnumber;
 
     @Column(nullable = false)

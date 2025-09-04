@@ -18,6 +18,7 @@ public class VisitorRequestDTO {
     private String vehiclename;
 
     @NotBlank(message = "Registration number should not be blank")
+    @NotNull(message = "Registration number should be 10 digits")
     private String vehicleRegistrationNumber;
 
     @NotNull(message = "Visitor purpose is mandatory")
