@@ -1,10 +1,12 @@
 package carveo_portal.carveoManagement.controller;
 
 import carveo_portal.carveoManagement.VisitorRequestDTO;
+import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
 import carveo_portal.carveoManagement.service.VisitorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,15 +19,18 @@ public class VisitorController {
     @Autowired
     private VisitorService visitorService;
 
+    // API to add/save  Visitor in DB
     @PostMapping("/addVisitor")
     public ResponseEntity<String> addVisitors(@Valid @RequestBody VisitorRequestDTO visitorRequestDTO) {
         visitorService.addVisitor(visitorRequestDTO);
         return ResponseEntity.ok("Visitor data Saved successfully");
     }
 
-//    public ResponseEntity<List<VisitorRequestDTO>> addListOfVisitor(){
-//
-//    }
+    // API to get visitor by vehicle Registration number
+    @GetMapping("/regNum/{regNum}")
+    public ResponseEntity<VisitorWithResidentDTO> getVisitorByRegNo(@PathVariable String regNum){
+       VisitorWithResidentDTO visitor= visitorService.getVisitorByRegNum(regNum);
+        return new ResponseEntity<>(visitor,HttpStatus.BAD_REQUEST);
 
-
+    }
 }
