@@ -22,6 +22,7 @@ public class VehicleService {
         this.residentRepository = residentRepository;
     }
 
+    // to save Vehicle with Validation
     public ResponseEntity<?> createVehicle(Vehicle vehicle) {
         // Check registration number
         if (vehicle.getRegistrationNumber() == null || vehicle.getRegistrationNumber().trim().isEmpty()) {
