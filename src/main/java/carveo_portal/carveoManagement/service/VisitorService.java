@@ -4,11 +4,13 @@ import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Visitor;
+import carveo_portal.carveoManagement.enums.VisitorType;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
 import carveo_portal.carveoManagement.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,5 +71,22 @@ public class VisitorService {
         return visitors.stream().map(this::MappedWithDTO).toList();
     }
 
-    //
+    // Method to update Visitor end TIme using PATCH
+        public Visitor updateVisitorEndTime(String vehicleRegNum, LocalDateTime exitTime) {
+            Visitor visitor = visitorRepository.findTopByVehicleRegistrationNumberOrderByTimeinDesc(vehicleRegNum)
+                    .orElseThrow(() -> new RuntimeException("Visitor not found with vehicle number: " + vehicleRegNum));
+
+            visitor.setTimeout(exitTime);
+            return visitorRepository.save(visitor);
+        }
+
+    // method to know visitor is active or not
+    public List<Visitor> getActiveVisitors(List<VisitorType> types){
+        if(types == null || types.isEmpty()){
+            return visitorRepository.findByIsactivevisitorTrue();
+        }
+        else{
+            return visitorRepository.findByVisitorTypeInAndIsactivevisitorTrue(types);
+        }
+    }
 }
