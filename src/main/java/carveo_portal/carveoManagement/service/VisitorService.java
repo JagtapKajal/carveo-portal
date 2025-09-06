@@ -10,6 +10,7 @@ import carveo_portal.carveoManagement.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,14 +72,51 @@ public class VisitorService {
         return visitors.stream().map(this::MappedWithDTO).toList();
     }
 
-    // Method to update Visitor end TIme using PATCH
-        public Visitor updateVisitorEndTime(String vehicleRegNum, LocalDateTime exitTime) {
-            Visitor visitor = visitorRepository.findTopByVehicleRegistrationNumberOrderByTimeinDesc(vehicleRegNum)
-                    .orElseThrow(() -> new RuntimeException("Visitor not found with vehicle number: " + vehicleRegNum));
 
-            visitor.setTimeout(exitTime);
-            return visitorRepository.save(visitor);
+    // to check visitor time out
+    public Visitor checkoutVisitor(int id, LocalDateTime timeout) {
+        Visitor visitor = visitorRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Visitor not found"));
+
+        visitor.setTimeout(timeout);
+        visitor.setIsactivevisitor(false);
+
+        // also calculate visitDuration
+        if (visitor.getTimein() != null && timeout != null) {
+            Duration duration = Duration.between(visitor.getTimein(), timeout);
+            long hours = duration.toHours();
+            long minutes = duration.toMinutesPart();
+            visitor.setVisitorduration(String.format("%02d:%02d", hours, minutes));
         }
+
+        return visitorRepository.save(visitor);
+    }
+
+    // Method to update Visitor end TIme using PATCH
+    public Visitor updateVisitorEndTime(String vehicleRegNum, LocalDateTime exitTime) {
+        // 1. Fetch the latest visitor record for this vehicle
+        Visitor visitor = visitorRepository
+                .findTopByVehicleRegistrationNumberOrderByTimeinDesc(vehicleRegNum)
+                .orElseThrow(() -> new RuntimeException(
+                        "Visitor not found with vehicle number: " + vehicleRegNum));
+
+        // 2. Set exit time and mark visitor as inactive
+        visitor.setTimeout(exitTime);
+        visitor.setIsactivevisitor(exitTime == null); // false if timeout is set
+
+        // 3. Always calculate duration (method itself checks nulls)
+        if (visitor.getTimein() != null && exitTime != null) {
+            Duration duration = Duration.between(visitor.getTimein(), exitTime);
+            long hours = duration.toHours();
+            long minutes = duration.toMinutesPart();
+            String formatted = String.format("%02d:%02d", hours, minutes);
+            visitor.setVisitorduration(formatted);
+
+            // mark visitor inactive
+            visitor.setIsactivevisitor(false);
+        }
+        return visitorRepository.save(visitor);
+}
 
     // method to know visitor is active or not
     public List<Visitor> getActiveVisitors(List<VisitorType> types){
@@ -89,4 +127,6 @@ public class VisitorService {
             return visitorRepository.findByVisitorTypeInAndIsactivevisitorTrue(types);
         }
     }
+
+
 }
