@@ -27,10 +27,9 @@ public class VisitorController {
     }
 
     // API to get visitor by vehicle Registration number
-    @GetMapping("/regNum/{regNum}")
-    public ResponseEntity<VisitorWithResidentDTO> getVisitorByRegNo(@PathVariable String regNum){
-       VisitorWithResidentDTO visitor= visitorService.getVisitorByRegNum(regNum);
-        return new ResponseEntity<>(visitor,HttpStatus.BAD_REQUEST);
-
+    @GetMapping("/getByRegNum/{RegNum}")
+    public ResponseEntity<List<VisitorWithResidentDTO>> getVisitorByRegNum(@PathVariable String RegNum){
+        List<VisitorWithResidentDTO> VisitorList = visitorService.getVisitorByRegNum(RegNum);
+        return new ResponseEntity<>(VisitorList, HttpStatus.OK);
     }
 }
