@@ -55,6 +55,11 @@ public class VisitorController {
         }
     }
 
-
+    // API to get know visitor is active or not
+    @GetMapping("/isactivevisitor")
+    public ResponseEntity<List<Visitor>> getActiveVisitor(@RequestParam(required = false)List<VisitorType> types){
+        List<Visitor> visitors = visitorService.getActiveVisitors(types);
+        return ResponseEntity.ok(visitors);
+    }
 
 }
