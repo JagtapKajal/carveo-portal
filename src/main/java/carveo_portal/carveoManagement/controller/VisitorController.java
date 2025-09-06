@@ -3,13 +3,17 @@ package carveo_portal.carveoManagement.controller;
 import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
+import carveo_portal.carveoManagement.enums.VisitorType;
 import carveo_portal.carveoManagement.service.VisitorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 
 @RestController
@@ -32,4 +36,25 @@ public class VisitorController {
         List<VisitorWithResidentDTO> VisitorList = visitorService.getVisitorByRegNum(RegNum);
         return new ResponseEntity<>(VisitorList, HttpStatus.OK);
     }
+
+    @PatchMapping("/updateEndTime/{vehicleRegNum}")
+    public ResponseEntity<String> updateEndTime(
+            @PathVariable String vehicleRegNum,
+            @RequestParam("exitTime") String exitTimeStr) {
+
+        try {
+            // Parse the date-time from string (ISO format: 2025-09-06T12:30:00)
+            LocalDateTime exitTime = LocalDateTime.parse(exitTimeStr.trim());
+
+            visitorService.updateVisitorEndTime(vehicleRegNum, exitTime);
+
+            return ResponseEntity.ok("Visitor exit time updated successfully");
+
+        } catch (DateTimeParseException e) {
+            return ResponseEntity.badRequest().body("Invalid date-time format. Use: yyyy-MM-dd'T'HH:mm:ss");
+        }
+    }
+
+
+
 }
