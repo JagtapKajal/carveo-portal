@@ -44,14 +44,30 @@ public class VisitorService {
     }
 
     // To map visitor with resident DTO
-
-
-
-    public List<VisitorWithResidentDTO>  getVisitorByRegNum(String regNum){
-        List<Visitor> visitor = visitorRepository.findByVehicleRegistrationNumber(regNum);
-        return visitor.stream()
-                .map(this::mapToDto)   // method jo entity ko DTO me convert karega
-                .collect(Collectors.toList());
-
+    private VisitorWithResidentDTO MappedWithDTO(Visitor visitor){
+        return new VisitorWithResidentDTO(
+                visitor.getVisitorname(),
+                visitor.getVehiclename(),
+                visitor.getVehicleRegistrationNumber(),
+                visitor.getVisitpurpose(),
+                visitor.getTimein(),
+                visitor.getTimeout(),
+                visitor.getPhonenumber(),
+                visitor.getVisitorType(),
+                visitor.getResident() != null ? visitor.getResident().getFname():null,
+                visitor.getResident() != null ? visitor.getResident().getFlatno(): null
+        );
     }
+
+    // Method to get Resident by registration number
+    public List<VisitorWithResidentDTO> getVisitorByRegNum(String regNum){
+        List<Visitor> visitors = visitorRepository.findByVehicleRegistrationNumber(regNum);
+
+        if(visitors.isEmpty()){
+            throw  new RuntimeException("Visitor not Found with Registration Number " + regNum);
+        }
+        return visitors.stream().map(this::MappedWithDTO).toList();
+    }
+
+    //
 }
