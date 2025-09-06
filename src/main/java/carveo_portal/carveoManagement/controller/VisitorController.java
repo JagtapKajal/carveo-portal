@@ -7,7 +7,6 @@ import carveo_portal.carveoManagement.enums.VisitorType;
 import carveo_portal.carveoManagement.service.VisitorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/visitors")
@@ -61,5 +61,16 @@ public class VisitorController {
         List<Visitor> visitors = visitorService.getActiveVisitors(types);
         return ResponseEntity.ok(visitors);
     }
+
+    @PatchMapping("/exit-time/{regNum}")
+    public ResponseEntity<Visitor> updateExitTime(
+            @PathVariable String regNum,
+            @RequestBody Map<String, String> requestBody) {
+
+        LocalDateTime exitTime = LocalDateTime.parse(requestBody.get("timeOut"));
+        Visitor updatedVisitor = visitorService.updateVisitorEndTime(regNum, exitTime);
+
+        return ResponseEntity.ok(updatedVisitor);
+}
 
 }
