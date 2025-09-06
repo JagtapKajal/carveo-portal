@@ -21,5 +21,6 @@ public interface VisitorRepository extends JpaRepository<Visitor, Integer> {
     // to get visitor is active or not
     List<Visitor> findByIsactivevisitorTrue();
 
-
+//    // multiple visitors ke liye (list return karega)
+//    List<Visitor> findAllByVehicleRegistrationNumber(String vehicleRegistrationNumber);
 }
