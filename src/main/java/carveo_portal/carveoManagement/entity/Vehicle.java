@@ -22,7 +22,7 @@ public class Vehicle {
     private Long id;
 
     @Column(nullable = false, unique = true)
-   @NotEmpty(message = "Registration number is required .....")
+    @NotEmpty(message = "Registration number is required .....")
     private String registrationnumber;
 
     @Column(nullable = false)
