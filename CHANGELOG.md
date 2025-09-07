@@ -93,3 +93,4 @@ All notable changes to this project will be documented in this file.
 ## [VEHMS-M01-T019] - Test phase 1.1
 - Conducted **application-wide testing** after phase 1.0 changes.
 - Logged and resolved additional bugs.  
+
