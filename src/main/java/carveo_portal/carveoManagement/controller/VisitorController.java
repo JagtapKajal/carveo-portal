@@ -43,7 +43,6 @@ public class VisitorController {
             @RequestParam("exitTime") String exitTimeStr) {
 
         try {
-            // Parse the date-time from string (ISO format: 2025-09-06T12:30:00)
             LocalDateTime exitTime = LocalDateTime.parse(exitTimeStr.trim());
 
             visitorService.updateVisitorEndTime(vehicleRegNum, exitTime);
@@ -62,6 +61,7 @@ public class VisitorController {
         return ResponseEntity.ok(visitors);
     }
 
+    //API to check visitor exit time
     @PatchMapping("/exit-time/{regNum}")
     public ResponseEntity<Visitor> updateExitTime(
             @PathVariable String regNum,
