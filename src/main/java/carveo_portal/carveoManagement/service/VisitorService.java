@@ -104,6 +104,7 @@ public class VisitorService {
         visitor.setTimeout(exitTime);
         visitor.setIsactivevisitor(exitTime == null); // false if timeout is set
 
+
         // 3. Always calculate duration (method itself checks nulls)
         if (visitor.getTimein() != null && exitTime != null) {
             Duration duration = Duration.between(visitor.getTimein(), exitTime);
