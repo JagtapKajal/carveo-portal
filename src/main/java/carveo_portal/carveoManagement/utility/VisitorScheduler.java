@@ -15,7 +15,7 @@ public class VisitorScheduler {
     @Autowired
     private VisitorRepository visitorRepository;
 
-    @Scheduled(cron = "0 * * * * ?") // every day at 11 PM
+    @Scheduled(cron = "0 * 21 * * ?") // every day at 11 PM
     public void generateDailyVisitorReport() {
         List<Visitor> visitors = visitorRepository.findAll();
 
