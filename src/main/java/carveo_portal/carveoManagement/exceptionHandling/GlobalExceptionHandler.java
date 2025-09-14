@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
     // Exception to handle invalid registration number
     @ExceptionHandler(InvalidRegistrationNumberException.class)
     public ResponseEntity<Map<String, String>> handleBadRequest(InvalidRegistrationNumberException ex) {
-        return new ResponseEntity<>(Map.of("error", ex.getMessage()), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(Map.of("error: Invalid Registration Number..", ex.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
 
@@ -34,9 +34,6 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
-
-
-
 
 //    public ResponseEntity<String> InvalidRegistrationHandling(InvalidRegistrationNumberException exception) {
 //        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
