@@ -76,12 +76,12 @@ public class VisitorService {
     // to check visitor time out
     public Visitor checkoutVisitor(int id, LocalDateTime timeout) {
         Visitor visitor = visitorRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Visitor not found"));
+                .orElseThrow(() -> new RuntimeException("Visitor not found"+id));
 
         visitor.setTimeout(timeout);
         visitor.setIsactivevisitor(false);
 
-        // also calculate visitDuration
+        // also calculate visit Duration
         if (visitor.getTimein() != null && timeout != null) {
             Duration duration = Duration.between(visitor.getTimein(), timeout);
             long hours = duration.toHours();
