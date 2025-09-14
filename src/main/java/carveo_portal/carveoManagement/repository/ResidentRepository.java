@@ -8,10 +8,13 @@ import java.util.Optional;
 
 public interface ResidentRepository extends JpaRepository<Resident, Integer> {
 
+    // get Resident List with first name
     List<Resident> findByFnameIgnoreCase(String fname);
 
+    // get List of resident with last name
     List<Resident> findByLnameIgnoreCase(String lname);
 
+    // get list of resident of first name and last name
     List<Resident> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname);
 
 }
