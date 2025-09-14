@@ -15,6 +15,8 @@ public class VisitorScheduler {
     @Autowired
     private VisitorRepository visitorRepository;
 
+    // Used Schedular to get daily report
+
     @Scheduled(cron = "0 * 21 * * ?") // every day at 11 PM
     public void generateDailyVisitorReport() {
         List<Visitor> visitors = visitorRepository.findAll();
