@@ -4,7 +4,10 @@ import carveo_portal.carveoManagement.enums.ResidentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,8 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 // This annotation use for T19 because its need to add on resident details they don't need vehicle details
@@ -36,6 +37,7 @@ public class Resident {
     private String flatno;
 
     @Column(nullable = false, unique = true)
+    @Digits(integer = 10, fraction = 0, message = "Mobile number must be exactly 10 digits")
     private long mobileno;
 
    @NotEmpty(message = "Email is Required")
@@ -54,5 +56,74 @@ public class Resident {
         this.vehicleList.add(vehicle);
     }
 
+    public long getMobileno() {
+        return mobileno;
+    }
 
+    public void setMobileno(long mobileno) {
+        this.mobileno = mobileno;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public void setFname(String fname) throws NoSuchMethodException {
+        if(fname == null || !fname.matches("^[A-Za-z]+$")){
+            throw new NoSuchMethodException("Invalid first name , Only Alphabets allowed");
+        }
+        this.fname = fname.trim();
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) throws NoSuchMethodException {
+
+        if(lname == null || !lname.matches("^[A-Za-z]+$")){
+            throw new NoSuchMethodException("Invalid last name , Only Alphabets allowed");
+        }
+        this.lname = lname.trim();
+    }
+
+    public String getFlatno() {
+        return flatno;
+    }
+
+    public void setFlatno(String flatno) {
+        this.flatno = flatno;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public ResidentType getResidenttype() {
+        return residenttype;
+    }
+
+    public void setResidenttype(ResidentType residenttype) {
+        this.residenttype = residenttype;
+    }
+
+    public List<Vehicle> getVehicleList() {
+        return vehicleList;
+    }
+
+    public void setVehicleList(List<Vehicle> vehicleList) {
+        this.vehicleList = vehicleList;
+    }
 }
