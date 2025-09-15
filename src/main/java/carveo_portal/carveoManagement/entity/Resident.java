@@ -28,9 +28,11 @@ public class Resident {
 
     @NotEmpty(message = "Firstname is required")
     @Column(nullable = false)
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid first name, spaces and special characters are not allowed")
     private String fname;
 
     @Column(nullable = false)
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid last name, spaces and special characters are not allowed")
     private String lname;
 
     @Column(nullable = false, unique = true)
@@ -76,10 +78,7 @@ public class Resident {
         return fname;
     }
 
-    public void setFname(String fname) throws NoSuchMethodException {
-        if(fname == null || !fname.matches("^[A-Za-z]+$")){
-            throw new NoSuchMethodException("Invalid first name , Only Alphabets allowed");
-        }
+    public void setFname(String fname)  {
         this.fname = fname.trim();
     }
 
@@ -87,13 +86,10 @@ public class Resident {
         return lname;
     }
 
-    public void setLname(String lname) throws NoSuchMethodException {
-
-        if(lname == null || !lname.matches("^[A-Za-z]+$")){
-            throw new NoSuchMethodException("Invalid last name , Only Alphabets allowed");
-        }
+    public void setLname(String lname) {
         this.lname = lname.trim();
     }
+
 
     public String getFlatno() {
         return flatno;
