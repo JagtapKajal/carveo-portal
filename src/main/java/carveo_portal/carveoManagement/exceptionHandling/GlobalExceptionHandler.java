@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 @ControllerAdvice
 @RestController
+@RestControllerAdvice
 public class GlobalExceptionHandler {
 
     // Exception to handle invalid registration number
@@ -34,6 +36,7 @@ public class GlobalExceptionHandler {
 
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
+
 
 //    public ResponseEntity<String> InvalidRegistrationHandling(InvalidRegistrationNumberException exception) {
 //        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
