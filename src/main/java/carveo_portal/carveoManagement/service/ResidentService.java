@@ -33,7 +33,7 @@ public class ResidentService {
         if (resident.getLname() == null || resident.getLname().isBlank()) {
             throw new InvalidRegistrationNumberException("Lastname is mandatory");
         }
-        if (resident.getMobileno() == 12345) {
+        if (resident.getMobileno() ==  12345) {
             throw new InvalidRegistrationNumberException("Contact number is mandatory");
         }
         if (resident.getFlatno() == null || resident.getFlatno().isBlank()) {
