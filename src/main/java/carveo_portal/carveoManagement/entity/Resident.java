@@ -27,18 +27,18 @@ public class Resident {
     private Long id;
 
     @NotEmpty(message = "Firstname is required")
-    @Column(nullable = false)
-    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid first name, spaces and special characters are not allowed")
+    //defines a search pattern for text.
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid first name, spaces and special numbers are not allowed")
     private String fname;
 
-    @Column(nullable = false)
-    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid last name, spaces and special characters are not allowed")
+
+    @Pattern(regexp = "^[A-Za-z]+$", message = "Invalid last name, spaces and special numbers are not allowed")
     private String lname;
 
-    @Column(nullable = false, unique = true)
+
     private String flatno;
 
-    @Column(nullable = false, unique = true)
+
     @Digits(integer = 10, fraction = 0, message = "Mobile number must be exactly 10 digits")
     private long mobileno;
 
