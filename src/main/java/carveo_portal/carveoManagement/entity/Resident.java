@@ -96,7 +96,7 @@ public class Resident {
     }
 
     public void setFlatno(String flatno) {
-        this.flatno = flatno;
+        this.flatno = flatno.trim();
     }
 
     public String getEmail() {
