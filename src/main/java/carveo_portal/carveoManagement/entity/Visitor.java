@@ -76,7 +76,7 @@ public class Visitor {
     }
 
     public void setVisitorname(String visitorname) {
-        this.visitorname = visitorname;
+        this.visitorname = visitorname.trim();
     }
 
     public String getVehiclename() {
@@ -84,7 +84,7 @@ public class Visitor {
     }
 
     public void setVehiclename(String vehiclename) {
-        this.vehiclename = vehiclename;
+        this.vehiclename = vehiclename.trim();
     }
 
     public String getVehicleRegistrationNumber() {
@@ -100,7 +100,7 @@ public class Visitor {
     }
 
     public void setVisitpurpose(String visitpurpose) {
-        this.visitpurpose = visitpurpose;
+        this.visitpurpose = visitpurpose.trim();
     }
 
     public LocalDateTime getTimein() {
