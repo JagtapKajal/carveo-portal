@@ -51,6 +51,6 @@ public class Vehicle {
     }
 
     public void setRegistrationNumber(String registrationNumber) {
-        this.registrationnumber = registrationNumber;
+        this.registrationnumber = registrationNumber.trim();
     }
 }
