@@ -79,7 +79,7 @@ public class ResidentService {
             return residentRepository.findByFnameIgnoreCaseAndLnameIgnoreCase(fname, lname);
         } else if (fname != null && !fname.isBlank()) {
             return residentRepository.findByFnameIgnoreCase(fname);
-        } else if (lname != null && !lname.isBlank()) {
+        } else if (lname != null && !lname.isEmpty()) {
             return residentRepository.findByLnameIgnoreCase(lname);
         }
         return List.of();
