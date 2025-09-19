@@ -96,5 +96,11 @@ public class ResidentService {
         return vehicle.getResident();
     }
 
+
+    public String getResidentNameByFlatNo(String flatno){
+    return residentRepository.findByFlatno(flatno)
+            .map(resident -> resident.getFname() + " " + resident.getLname())
+            .orElse("Resident not found with "+flatno);
+    }
 }
 
