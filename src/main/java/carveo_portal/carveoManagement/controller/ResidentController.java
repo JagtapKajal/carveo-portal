@@ -70,5 +70,11 @@ public class ResidentController {
     public Resident getResidentByRegNum(@PathVariable String regNum){
         return residentService.getResidentByRegistrationNumber(regNum);
     }
+
+
+    @GetMapping("/getNameByFlatNo/{flatno}")
+    public String getResidentName(@PathVariable String flatno){
+        return residentService.getResidentNameByFlatNo(flatno);
+    }
 }
 
