@@ -72,9 +72,17 @@ public class ResidentController {
     }
 
 
+    // API to get Resident Name By Flat no
     @GetMapping("/getNameByFlatNo/{flatno}")
     public String getResidentName(@PathVariable String flatno){
         return residentService.getResidentNameByFlatNo(flatno);
+    }
+
+    // API to Update Resident
+    @PutMapping("/UpdateResident/{id}")
+    public Resident UpdateResident(@PathVariable int id , @RequestBody  Resident UpdateResident){
+     return residentService.updateResident(id, UpdateResident);
+
     }
 }
 
