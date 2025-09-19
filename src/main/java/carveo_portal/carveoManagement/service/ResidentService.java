@@ -3,11 +3,14 @@ package carveo_portal.carveoManagement.service;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
 import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
+import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
 import carveo_portal.carveoManagement.repository.VehicleRepository;
+import ch.qos.logback.core.CoreConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLOutput;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +36,7 @@ public class ResidentService {
         if (resident.getLname() == null || resident.getLname().isBlank()) {
             throw new InvalidRegistrationNumberException("Lastname is mandatory");
         }
-        if (resident.getMobileno() ==  12345) {
+        if (resident.getMobileno() == 12345) {
             throw new InvalidRegistrationNumberException("Contact number is mandatory");
         }
         if (resident.getFlatno() == null || resident.getFlatno().isBlank()) {
@@ -92,16 +95,17 @@ public class ResidentService {
             throw new InvalidRegistrationNumberException("Invalid Registration number, Please enter 10 digit number");
         }
 
-        Vehicle vehicle = vehicleRepository.findByRegistrationnumber(registrationNumber).orElseThrow(() -> new InvalidRegistrationNumberException.VehicleNotFoundException("please enter valid number, Vehicle not found" + registrationNumber));
+        Vehicle vehicle = vehicleRepository.findByRegistrationnumber(registrationNumber)
+                .orElseThrow(() -> new InvalidRegistrationNumberException.VehicleNotFoundException("please enter valid number, Vehicle not found" + registrationNumber));
         return vehicle.getResident();
     }
 
 
     // Method to get Resident name By FlatNo
-    public String getResidentNameByFlatNo(String flatno){
-    return residentRepository.findByFlatno(flatno)
-            .map(resident -> resident.getFname() + " " + resident.getLname())
-            .orElse("Resident not found with "+flatno);
+    public String getResidentNameByFlatNo(String flatno) {
+        return residentRepository.findByFlatno(flatno)
+                .map(resident -> resident.getFname() + " " + resident.getLname())
+                .orElse("Resident not found with " + flatno);
     }
 
     // Method to update resident
@@ -116,5 +120,16 @@ public class ResidentService {
             return residentRepository.save(resident);
         }).orElseThrow(() -> new RuntimeException("Resident not found with id: " + id));
     }
-}
 
+    // Method to delete Resident by id
+    public String DeleteResidentById(int id) {
+        try {
+            Resident resident = residentRepository.findById(id).orElseThrow(()
+                    -> new ResourceNotFoundException("Resident not found "));
+            residentRepository.deleteById(id);
+            return "Resident Deleted with " + id;
+        } catch (ResourceNotFoundException e) {
+            return "Resident Not found with id " + id;
+        }
+    }
+}
