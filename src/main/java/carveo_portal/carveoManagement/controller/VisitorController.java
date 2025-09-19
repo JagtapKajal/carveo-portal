@@ -38,6 +38,7 @@ public class VisitorController {
         return new ResponseEntity<>(VisitorList, HttpStatus.OK);
     }
 
+    // API to update visitor exit time by registration number
     @PatchMapping("/updateEndTime/{vehicleRegNum}")
     public ResponseEntity<String> updateEndTime(
             @PathVariable String vehicleRegNum,

@@ -36,6 +36,7 @@ public class Resident {
     private String lname;
 
 
+    @Pattern(regexp = "^[A-Za-z0-9-]+$", message = "Invalid flat number")
     private String flatno;
 
 
