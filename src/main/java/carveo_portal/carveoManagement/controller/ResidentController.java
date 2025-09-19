@@ -84,5 +84,12 @@ public class ResidentController {
      return residentService.updateResident(id, UpdateResident);
 
     }
+
+    // API to Delete Resident by Id
+    @DeleteMapping("/DeleteResident/{id}")
+    public ResponseEntity<String> DeleteResidentById(@PathVariable("id") int id){
+        String deleteResident = residentService.DeleteResidentById(id);
+        return new ResponseEntity<>(deleteResident, HttpStatus.OK);
+    }
 }
 
