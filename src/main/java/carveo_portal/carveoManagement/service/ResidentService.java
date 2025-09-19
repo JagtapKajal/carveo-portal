@@ -127,7 +127,7 @@ public class ResidentService {
             Resident resident = residentRepository.findById(id).orElseThrow(()
                     -> new ResourceNotFoundException("Resident not found "));
             residentRepository.deleteById(id);
-            return "Resident Deleted with " + id;
+            return "Resident Deleted successfully with " + id;
 
         } catch (ResourceNotFoundException e) {
             return "Resident Not found with id " + id;
