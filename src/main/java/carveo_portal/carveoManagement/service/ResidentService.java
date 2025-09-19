@@ -97,10 +97,24 @@ public class ResidentService {
     }
 
 
+    // Method to get Resident name By FlatNo
     public String getResidentNameByFlatNo(String flatno){
     return residentRepository.findByFlatno(flatno)
             .map(resident -> resident.getFname() + " " + resident.getLname())
             .orElse("Resident not found with "+flatno);
+    }
+
+    // Method to update resident
+    public Resident updateResident(int id, Resident updatedResident) {
+        return residentRepository.findById(id).map(resident -> {
+            resident.setFname(updatedResident.getFname());
+            resident.setLname(updatedResident.getLname());
+            resident.setFlatno(updatedResident.getFlatno());
+            resident.setMobileno(updatedResident.getMobileno());
+            resident.setEmail(updatedResident.getEmail());
+            resident.setResidenttype(updatedResident.getResidenttype());
+            return residentRepository.save(resident);
+        }).orElseThrow(() -> new RuntimeException("Resident not found with id: " + id));
     }
 }
 
