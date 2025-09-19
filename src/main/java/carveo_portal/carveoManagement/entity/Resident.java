@@ -4,10 +4,7 @@ import carveo_portal.carveoManagement.enums.ResidentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +41,7 @@ public class Resident {
     private long mobileno;
 
    @NotEmpty(message = "Email is Required")
+   @Email(message = "Invalid email format")
     private String email;
 
     @Enumerated(EnumType.STRING)
