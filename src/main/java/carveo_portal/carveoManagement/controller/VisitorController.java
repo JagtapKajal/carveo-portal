@@ -4,7 +4,7 @@ import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
 import carveo_portal.carveoManagement.enums.VisitorType;
-import carveo_portal.carveoManagement.service.VisitorService;
+import carveo_portal.carveoManagement.serviceImpl.VisitorServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,19 +22,19 @@ import java.util.Map;
 public class VisitorController {
 
     @Autowired
-    private VisitorService visitorService;
+    private VisitorServiceImpl visitorServiceImpl;
 
     // API to add/save  Visitor in DB
     @PostMapping("/addVisitor")
     public ResponseEntity<String> addVisitors(@Valid @RequestBody VisitorRequestDTO visitorRequestDTO) {
-        visitorService.addVisitor(visitorRequestDTO);
+        visitorServiceImpl.addVisitor(visitorRequestDTO);
         return ResponseEntity.ok("Visitor data Saved successfully");
     }
 
     // API to get visitor by vehicle Registration number
     @GetMapping("/getByRegNum/{RegNum}")
     public ResponseEntity<List<VisitorWithResidentDTO>> getVisitorByRegNum(@PathVariable String RegNum){
-        List<VisitorWithResidentDTO> VisitorList = visitorService.getVisitorByRegNum(RegNum);
+        List<VisitorWithResidentDTO> VisitorList = visitorServiceImpl.getVisitorByRegNum(RegNum);
         return new ResponseEntity<>(VisitorList, HttpStatus.OK);
     }
 
@@ -47,7 +47,7 @@ public class VisitorController {
         try {
             LocalDateTime exitTime = LocalDateTime.parse(exitTimeStr.trim());
 
-            visitorService.updateVisitorEndTime(vehicleRegNum, exitTime);
+            visitorServiceImpl.updateVisitorEndTime(vehicleRegNum, exitTime);
 
             return ResponseEntity.ok("Visitor exit time updated successfully");
 
@@ -59,7 +59,7 @@ public class VisitorController {
     // API to get know visitor is active or not
     @GetMapping("/isactivevisitor")
     public ResponseEntity<List<Visitor>> getActiveVisitor(@RequestParam(required = false)List<VisitorType> types){
-        List<Visitor> visitors = visitorService.getActiveVisitors(types);
+        List<Visitor> visitors = visitorServiceImpl.getActiveVisitors(types);
         return ResponseEntity.ok(visitors);
     }
 
@@ -70,7 +70,7 @@ public class VisitorController {
             @RequestBody Map<String, String> requestBody) {
 
         LocalDateTime exitTime = LocalDateTime.parse(requestBody.get("timeOut"));
-        Visitor updatedVisitor = visitorService.updateVisitorEndTime(regNum, exitTime);
+        Visitor updatedVisitor = visitorServiceImpl.updateVisitorEndTime(regNum, exitTime);
 
         return ResponseEntity.ok(updatedVisitor);
 }

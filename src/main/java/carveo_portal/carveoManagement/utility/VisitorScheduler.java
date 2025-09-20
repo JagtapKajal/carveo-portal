@@ -2,7 +2,6 @@ package carveo_portal.carveoManagement.utility;
 
 import carveo_portal.carveoManagement.entity.Visitor;
 import carveo_portal.carveoManagement.repository.VisitorRepository;
-import carveo_portal.carveoManagement.service.VisitorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
