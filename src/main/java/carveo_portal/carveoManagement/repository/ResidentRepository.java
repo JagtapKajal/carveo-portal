@@ -17,5 +17,10 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
     // get list of resident of first name and last name
     List<Resident> findByFnameIgnoreCaseAndLnameIgnoreCase(String fname, String lname);
 
-    Optional<Resident> findByFlatno(String flatno);
+   Resident findByFlatno(String flatno);
+
+
+    Resident findByFname(String fname);
+
+
 }

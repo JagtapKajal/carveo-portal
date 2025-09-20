@@ -3,6 +3,7 @@ package carveo_portal.carveoManagement.serviceImpl;
 import carveo_portal.carveoManagement.Service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
+import carveo_portal.carveoManagement.enums.ResidentType;
 import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
 import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ResidentServiceImpl implements ResidentService {
@@ -68,13 +70,13 @@ public class ResidentServiceImpl implements ResidentService {
     // method to get resident by Id
     @Override
     public Resident getResidentById(int id) {
-      try{
-          Resident resident =residentRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Resident not found with "+id));
-        residentRepository.findById(id);
-          return resident;
-      }
-      catch(ResourceNotFoundException e){
-          throw new ResourceNotFoundException("Resident not found with "+id);
+        try {
+            Resident resident = residentRepository.findById(id).orElseThrow(() ->
+                    new ResourceNotFoundException("Resident not found with " + id));
+            residentRepository.findById(id);
+            return resident;
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Resident not found with " + id);
 
         }
 
@@ -115,25 +117,13 @@ public class ResidentServiceImpl implements ResidentService {
 
     // Method to get Resident name By FlatNo
     @Override
-    public String getResidentNameByFlatNo(String flatno) {
-        return residentRepository.findByFlatno(flatno)
-                .map(resident -> resident.getFname() + " " + resident.getLname())
-                .orElse("Resident not found with " + flatno);
+    public Resident getResidentNameByFlatNo(String flatno) {
+        return residentRepository.findByFlatno(flatno);
+
     }
 
-    // Method to update resident
-    @Override
-    public Resident updateResident(int id, Resident updatedResident) {
-        return residentRepository.findById(id).map(resident -> {
-            resident.setFname(updatedResident.getFname());
-            resident.setLname(updatedResident.getLname());
-            resident.setFlatno(updatedResident.getFlatno());
-            resident.setMobileno(updatedResident.getMobileno());
-            resident.setEmail(updatedResident.getEmail());
-            resident.setResidenttype(updatedResident.getResidenttype());
-            return residentRepository.save(resident);
-        }).orElseThrow(() -> new RuntimeException("Resident not found with id: " + id));
-    }
+
+
 
     // Method to delete Resident by id
     @Override
@@ -148,4 +138,53 @@ public class ResidentServiceImpl implements ResidentService {
             return "Resident Not found with id " + id;
         }
     }
+
+    @Override
+    public List<Resident> findResidentByType(ResidentType residentType) {
+
+        return List.of();
+    }
+
+    // Method to update resident
+    @Override
+    public Resident findByFname(String fname, Resident updateResident) {
+
+            Resident resident = residentRepository.findByFname(fname);
+
+            if(resident == null){
+            throw new ResourceNotFoundException("Resident not found with "+fname);
+
+            }
+            // update fields
+            resident.setFlatno(updateResident.getFlatno());
+            resident.setMobileno(updateResident.getMobileno());
+            resident.setEmail(updateResident.getEmail());
+            resident.setFname(updateResident.getFname());
+            resident.setLname(updateResident.getLname());
+            resident.setResidenttype(updateResident.getResidenttype());
+
+            return residentRepository.save(resident);
+
+    }
+
+    // Update Resident by flat No
+    @Override
+    public Resident findByFlatNo(String flatno, Resident updateResident) {
+        Resident resident = residentRepository.findByFlatno(flatno);
+        if(resident == null){
+            throw new ResourceNotFoundException("Resident not found with "+flatno);
+
+        }
+        // update fields
+        resident.setFlatno(updateResident.getFlatno());
+        resident.setMobileno(updateResident.getMobileno());
+        resident.setEmail(updateResident.getEmail());
+        resident.setFname(updateResident.getFname());
+        resident.setLname(updateResident.getLname());
+        resident.setResidenttype(updateResident.getResidenttype());
+
+        return residentRepository.save(resident);
+
+    }
+
 }
