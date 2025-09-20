@@ -1,6 +1,8 @@
 package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.VisitorType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,15 +34,21 @@ public class Visitor {
     @Column(name = "isactivevisitor", nullable = false)
     private boolean isactivevisitor;
 
+    // Enum of visitor type
     @Enumerated(EnumType.STRING)
     private VisitorType visitorType; //Guest / Delivery
 
+
+    // Mapping with Resident
     @ManyToOne
     @JoinColumn(name = "resident_id", nullable = true)
+    @JsonBackReference
+    @JsonIgnore
     private Resident resident;
 
     @Column(name = "visitor_duration")
     private String visitorduration;
+
 
     @PreUpdate
     public void calculateDuration() {
