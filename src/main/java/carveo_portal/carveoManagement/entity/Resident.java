@@ -3,6 +3,7 @@ package carveo_portal.carveoManagement.entity;
 import carveo_portal.carveoManagement.enums.ResidentType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
@@ -44,13 +45,22 @@ public class Resident {
    @Email(message = "Invalid email format")
     private String email;
 
+   // Enum of Resident type
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ResidentType residenttype;
 
+    //Mapping of vehicle
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnore
     private List<Vehicle> vehicleList = new ArrayList<>();
+
+    // Mapping of Visitor
+    @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Visitor> visitorList = new ArrayList<>();
+
+
 
     public void addVehicle(Vehicle vehicle) {
         vehicle.setResident(this);
