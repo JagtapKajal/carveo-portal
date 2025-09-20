@@ -1,8 +1,10 @@
 package carveo_portal.carveoManagement.controller;
 
+import carveo_portal.carveoManagement.Service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
-import carveo_portal.carveoManagement.serviceImpl.ResidentServiceImpl;
+
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,35 +16,32 @@ import java.util.List;
 @RequestMapping("/residents")
 public class ResidentController {
 
-    private final ResidentServiceImpl residentServiceImpl;
-
-    public ResidentController(ResidentServiceImpl residentServiceImpl) {
-        this.residentServiceImpl = residentServiceImpl;
-    }
+    @Autowired
+   private ResidentService residentService;
 
     // API to save Resident
     @PostMapping("/saveResident")
     public ResponseEntity<?> addResident(@Valid @RequestBody Resident resident) {
-        residentServiceImpl.saveResident(resident);
+        residentService.saveResident(resident);
         return new ResponseEntity<>("Data Saved", HttpStatus.CREATED);
     }
 
     //API to save list of resident
     @PostMapping("/listofresident")
     public ResponseEntity<List<Resident>> saveAllResidents(@RequestBody List<Resident> residents) {
-        return ResponseEntity.ok(residentServiceImpl.saveAll(residents));
+        return ResponseEntity.ok(residentService.saveAll(residents));
     }
 
     // API to get Resident by Id
     @GetMapping("/ResidentById/{id}")
     public Resident getResidentById(@PathVariable int id) {
-        return residentServiceImpl.getResidentById(id);
+        return residentService.getResidentById(id);
     }
 
     // API to get List of Resident
     @GetMapping("/getAllResident")
     public ResponseEntity<List<Resident>> getAllResidents() {
-        return ResponseEntity.ok(residentServiceImpl.getAllResident());
+        return ResponseEntity.ok(residentService.getAllResident());
     }
 
     // API to get Resident by first name and lastname or both
@@ -56,7 +55,7 @@ public class ResidentController {
             return ResponseEntity.badRequest().body("Fname/Lname should not contain numbers.");
         }
 
-        List<Resident> residents = residentServiceImpl.findByName(fname, lname);
+        List<Resident> residents = residentService.findByName(fname, lname);
 
         if (residents.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No resident found with given input(s).");
@@ -67,28 +66,38 @@ public class ResidentController {
     //API to get resident by registration number
     @GetMapping("/getByRegNum/{regNum}")
     public Resident getResidentByRegNum(@PathVariable String regNum){
-        return residentServiceImpl.getResidentByRegistrationNumber(regNum);
+        return residentService.getResidentByRegistrationNumber(regNum);
     }
 
 
     // API to get Resident Name By Flat no
     @GetMapping("/getNameByFlatNo/{flatno}")
     public String getResidentName(@PathVariable String flatno){
-        return residentServiceImpl.getResidentNameByFlatNo(flatno);
+        Resident resident = residentService.getResidentNameByFlatNo(flatno);
+        return "Resident with flatNo "+ flatno;
     }
 
     // API to Update Resident
-    @PutMapping("/UpdateResident/{id}")
-    public Resident UpdateResident(@PathVariable int id , @RequestBody  Resident UpdateResident){
-     return residentServiceImpl.updateResident(id, UpdateResident);
-
+    @PutMapping("/updateResident")
+    public ResponseEntity<Resident> updateResident(@RequestParam("fname") String fname,
+                                                   @RequestBody Resident resident) {
+        Resident resident1 = residentService.findByFname(fname, resident);
+        return new ResponseEntity<>(resident1, HttpStatus.OK);
     }
 
     // API to Delete Resident by Id
     @DeleteMapping("/DeleteResident/{id}")
     public ResponseEntity<String> DeleteResidentById(@PathVariable("id") int id){
-        String deleteResident = residentServiceImpl.DeleteResidentById(id);
+        String deleteResident = residentService.DeleteResidentById(id);
         return new ResponseEntity<>(deleteResident, HttpStatus.OK);
     }
+
+    // Update Resident by flat No
+    @PutMapping("/UpdateResidentByFlatNo")
+    public ResponseEntity<Resident> updateResidentByFlatNo(@RequestParam("flatno") String flatno,@RequestBody Resident resident){
+        Resident resident2 = residentService.findByFlatNo(flatno, resident);
+        return new ResponseEntity<>(resident2, HttpStatus.OK);
+    }
+
 }
 

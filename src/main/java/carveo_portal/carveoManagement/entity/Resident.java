@@ -52,7 +52,7 @@ public class Resident {
 
     //Mapping of vehicle
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnore
+
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     // Mapping of Visitor
