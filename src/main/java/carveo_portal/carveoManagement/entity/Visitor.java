@@ -43,7 +43,7 @@ public class Visitor {
     @ManyToOne
     @JoinColumn(name = "resident_id", nullable = true)
     @JsonBackReference
-    @JsonIgnore
+  
     private Resident resident;
 
     @Column(name = "visitor_duration")

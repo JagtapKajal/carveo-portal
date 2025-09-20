@@ -37,6 +37,10 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<String> handleResourceNotFound(ResourceNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
 
 //    public ResponseEntity<String> InvalidRegistrationHandling(InvalidRegistrationNumberException exception) {
 //        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
