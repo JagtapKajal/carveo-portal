@@ -70,13 +70,6 @@ public class ResidentController {
     }
 
 
-    // API to get Resident Name By Flat no
-    @GetMapping("/getNameByFlatNo/{flatno}")
-    public String getResidentName(@PathVariable String flatno){
-        Resident resident = residentService.getResidentNameByFlatNo(flatno);
-        return "Resident with flatNo "+ flatno;
-    }
-
     // API to Update Resident
     @PutMapping("/updateResident")
     public ResponseEntity<Resident> updateResident(@RequestParam("fname") String fname,
@@ -97,6 +90,34 @@ public class ResidentController {
     public ResponseEntity<Resident> updateResidentByFlatNo(@RequestParam("flatno") String flatno,@RequestBody Resident resident){
         Resident resident2 = residentService.findByFlatNo(flatno, resident);
         return new ResponseEntity<>(resident2, HttpStatus.OK);
+    }
+
+    // Delete Resident by FlatNo
+    @DeleteMapping("/DeleteByFlatNo/{flatno}")
+    public ResponseEntity<String> DeleteResidentByFlatNo(@PathVariable("flatno") String flatno){
+        String deleteResident = residentService.DeleteByFlatNo(flatno);
+        return new ResponseEntity<>(deleteResident,HttpStatus.OK);
+    }
+
+    //get resindet by flat no
+    @GetMapping("/getResidentByFlatNo/{flatno}")
+    public ResponseEntity<Resident> getResidentByFlatNo(@PathVariable("flatno") String flatno, Resident resident){
+        Resident resident2 = residentService.getResidentByFlatNo(flatno, resident);
+        return new ResponseEntity<>(resident2, HttpStatus.OK);
+    }
+
+    //get resident by parking lot
+    @GetMapping("/getResidentByParkingLot/{parkingslot}")
+    public ResponseEntity<Resident> getResidentByParkingLot(@PathVariable("parkingslot") String parkingslot, Resident resident){
+        Resident resident3 = residentService.getResidentByParkingLot(parkingslot, resident);
+        return new ResponseEntity<>(resident3,HttpStatus.OK);
+    }
+
+    //API to get residnet type
+    @GetMapping("/filterByResidentType")
+    public ResponseEntity<List<Resident>> filterByResidentType(@RequestParam("residenttype") String residenttype, List<Resident> resident ){
+        List<Resident> residentlist = residentService.findResidentByResidentType(residenttype, resident);
+        return new ResponseEntity<>(residentlist, HttpStatus.OK);
     }
 
 }
