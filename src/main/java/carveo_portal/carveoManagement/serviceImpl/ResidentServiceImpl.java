@@ -3,7 +3,6 @@ package carveo_portal.carveoManagement.serviceImpl;
 import carveo_portal.carveoManagement.Service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
-import carveo_portal.carveoManagement.enums.ResidentType;
 import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
 import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ResidentServiceImpl implements ResidentService {
@@ -115,16 +113,6 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
 
-    // Method to get Resident name By FlatNo
-    @Override
-    public Resident getResidentNameByFlatNo(String flatno) {
-        return residentRepository.findByFlatno(flatno);
-
-    }
-
-
-
-
     // Method to delete Resident by id
     @Override
     public String DeleteResidentById(int id) {
@@ -140,9 +128,10 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public List<Resident> findResidentByType(ResidentType residentType) {
+    public List<Resident> findResidentByResidentType(String residentType, List<Resident> resident) {
 
-        return List.of();
+        List<Resident> residentlist = residentRepository.findResidentByResidentType(residentType);
+        return residentlist;
     }
 
     // Method to update resident
@@ -187,4 +176,36 @@ public class ResidentServiceImpl implements ResidentService {
 
     }
 
+    // Delete by flat no
+    @Override
+    public String DeleteByFlatNo(String flatno) {
+       Resident resident =  residentRepository.findByFlatno(flatno);
+       if(resident == null){
+           throw new ResourceNotFoundException("Resident flat no not found with flat no "+flatno);
+       }
+       residentRepository.delete(resident);
+        return "Resident Deleted Successfully";
+    }
+
+    // Get Resident by Flat No
+    @Override
+    public Resident getResidentByFlatNo(String flatno, Resident resident) {
+
+        Resident listOfResident = residentRepository.findByFlatno(flatno);
+
+        if (listOfResident == null){
+            throw new ResourceNotFoundException("Resident not found with flatno " + flatno);
+        }
+            return listOfResident;
+    }
+
+    //get Resident by parkingLot
+    @Override
+    public Resident getResidentByParkingLot (String parkingslot, Resident resident) {
+        Resident resident2 = residentRepository.findByparkingslot(parkingslot);
+        if(resident == null){
+            throw new ResourceNotFoundException("Resident not found with ParkingLot "+ parkingslot);
+        }
+        return resident2;
+    }
 }
