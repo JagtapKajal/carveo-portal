@@ -49,4 +49,5 @@ public class VehicleServiceImpl implements VehicleService {
         return ResponseEntity.ok(savedVehicle);
     }
 
+
 }
