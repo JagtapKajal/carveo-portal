@@ -1,15 +1,12 @@
 package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,17 @@ public class Resident {
     @Digits(integer = 10, fraction = 0, message = "Mobile number must be exactly 10 digits")
     private long mobileno;
 
-   @NotEmpty(message = "Email is Required")
+    private String parkingslot;
+
+    public String getparkingslot() {
+        return parkingslot;
+    }
+
+    public void setparkingslot(String parkingslot) {
+        parkingslot = parkingslot;
+    }
+
+    @NotEmpty(message = "Email is Required")
    @Email(message = "Invalid email format")
     private String email;
 
@@ -105,7 +112,7 @@ public class Resident {
     }
 
     public void setFlatno(String flatno) {
-        this.flatno = flatno.trim();
+        this.flatno = flatno;
     }
 
     public String getEmail() {
@@ -113,7 +120,7 @@ public class Resident {
     }
 
     public void setEmail(String email) {
-        this.email = email.trim();
+        this.email = email;
     }
 
     public ResidentType getResidenttype() {
