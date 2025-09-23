@@ -1,10 +1,8 @@
 package carveo_portal.carveoManagement.Service;
 
 import carveo_portal.carveoManagement.entity.Resident;
-import carveo_portal.carveoManagement.enums.ResidentType;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ResidentService {
 
@@ -30,7 +28,6 @@ public interface ResidentService {
     // Method to delete Resident by id
     public String DeleteResidentById(int id);
 
-    List<Resident> findResidentByResidentType(String residenttype, List<Resident> resident);
 
     // Method to update resident
     Resident findByFname(String fname, Resident updateResident);
@@ -45,4 +42,6 @@ public interface ResidentService {
     public Resident getResidentByFlatNo(String flatno, Resident resident);
 
     public Resident getResidentByParkingLot(String parkingslot, Resident resident);
+
+    List<Resident> filterByResidentType(String residenttype);
 }
