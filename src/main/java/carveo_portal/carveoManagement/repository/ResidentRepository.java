@@ -1,10 +1,13 @@
 package carveo_portal.carveoManagement.repository;
 
 import carveo_portal.carveoManagement.entity.Resident;
+import carveo_portal.carveoManagement.enums.ResidentType;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface ResidentRepository extends JpaRepository<Resident, Integer> {
 
     // get Resident List with first name
@@ -23,5 +26,5 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
 
     Resident findByparkingslot(String parkingslot);
 
-    List<Resident> findResidentByResidentType(String residenttype);
+    List<Resident> findByResidenttype(ResidentType residenttype);
 }
