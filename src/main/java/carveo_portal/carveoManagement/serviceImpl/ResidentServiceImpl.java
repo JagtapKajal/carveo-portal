@@ -3,6 +3,7 @@ package carveo_portal.carveoManagement.serviceImpl;
 import carveo_portal.carveoManagement.Service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
+import carveo_portal.carveoManagement.enums.ResidentType;
 import carveo_portal.carveoManagement.exceptionHandling.InvalidRegistrationNumberException;
 import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
@@ -127,13 +128,6 @@ public class ResidentServiceImpl implements ResidentService {
         }
     }
 
-    @Override
-    public List<Resident> findResidentByResidentType(String residentType, List<Resident> resident) {
-
-        List<Resident> residentlist = residentRepository.findResidentByResidentType(residentType);
-        return residentlist;
-    }
-
     // Method to update resident
     @Override
     public Resident findByFname(String fname, Resident updateResident) {
@@ -207,5 +201,11 @@ public class ResidentServiceImpl implements ResidentService {
             throw new ResourceNotFoundException("Resident not found with ParkingLot "+ parkingslot);
         }
         return resident2;
+    }
+
+    @Override
+    public List<Resident> filterByResidentType(String residenttype) {
+        ResidentType residenttype1 = ResidentType.valueOf(residenttype.toUpperCase());
+        return residentRepository.findByResidenttype(residenttype1);
     }
 }
