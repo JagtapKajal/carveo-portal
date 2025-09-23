@@ -3,6 +3,7 @@ package carveo_portal.carveoManagement.controller;
 import carveo_portal.carveoManagement.Service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 
+import carveo_portal.carveoManagement.enums.ResidentType;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -113,11 +114,10 @@ public class ResidentController {
         return new ResponseEntity<>(resident3,HttpStatus.OK);
     }
 
-    //API to get residnet type
     @GetMapping("/filterByResidentType")
-    public ResponseEntity<List<Resident>> filterByResidentType(@RequestParam("residenttype") String residenttype, List<Resident> resident ){
-        List<Resident> residentlist = residentService.findResidentByResidentType(residenttype, resident);
-        return new ResponseEntity<>(residentlist, HttpStatus.OK);
+    public ResponseEntity<List<Resident>> filterByResidentType(@RequestParam("residentType") String residenttype){
+        List<Resident> residentList = residentService.filterByResidentType(residenttype);
+        return new ResponseEntity<>(residentList, HttpStatus.OK);
     }
 
 }
