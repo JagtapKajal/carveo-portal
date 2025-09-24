@@ -42,11 +42,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
-//    public ResponseEntity<String> InvalidRegistrationHandling(InvalidRegistrationNumberException exception) {
-//        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
-//    }
-//
-//    public ResponseEntity<String> VehicleNotFound(InvalidRegistrationNumberException.VehicleNotFoundException exception) {
-//        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-//    }
 }
