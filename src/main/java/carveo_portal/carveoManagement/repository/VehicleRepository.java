@@ -9,4 +9,5 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
         // Method to find vehicle by Registration number
         Optional<Vehicle> findByRegistrationnumber(String registrationnumber);
+
 }
