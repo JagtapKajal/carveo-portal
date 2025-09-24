@@ -2,10 +2,7 @@ package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.VisitorType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -43,7 +40,6 @@ public class Visitor {
     @ManyToOne
     @JoinColumn(name = "resident_id", nullable = true)
     @JsonBackReference
-  
     private Resident resident;
 
     @Column(name = "visitor_duration")
