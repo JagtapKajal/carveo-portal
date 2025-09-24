@@ -27,32 +27,37 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     //Method to save resident details
+//    @Override
+//    public Resident saveResident(Resident resident) {
+//        // Manual validation
+//        if (resident.getFname() == null || resident.getFname().isBlank()) {
+//            throw new InvalidRegistrationNumberException("Firstname is mandatory");
+//        }
+//        if (resident.getLname() == null || resident.getLname().isBlank()) {
+//            throw new InvalidRegistrationNumberException("Lastname is mandatory");
+//        }
+//        if (resident.getMobileno() == 12345) {
+//            throw new InvalidRegistrationNumberException("Contact number is mandatory");
+//        }
+//        if (resident.getFlatno() == null || resident.getFlatno().isBlank()) {
+//            throw new InvalidRegistrationNumberException("Flat number is mandatory");
+//        }
+//        if (resident.getEmail() != null && !resident.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+//            throw new InvalidRegistrationNumberException("Email is invalid");
+//        }
+//        if (resident.getVehicleList() != null) {
+//            resident.getVehicleList().forEach(v -> {
+//                v.setResident(resident);
+//                v.getIntime(LocalDateTime.now().withNano(0));
+//            });
+//        }
+//
+//        return residentRepository.save(residen    t);
+//    }
+
     @Override
     public Resident saveResident(Resident resident) {
-        // Manual validation
-        if (resident.getFname() == null || resident.getFname().isBlank()) {
-            throw new InvalidRegistrationNumberException("Firstname is mandatory");
-        }
-        if (resident.getLname() == null || resident.getLname().isBlank()) {
-            throw new InvalidRegistrationNumberException("Lastname is mandatory");
-        }
-        if (resident.getMobileno() == 12345) {
-            throw new InvalidRegistrationNumberException("Contact number is mandatory");
-        }
-        if (resident.getFlatno() == null || resident.getFlatno().isBlank()) {
-            throw new InvalidRegistrationNumberException("Flat number is mandatory");
-        }
-        if (resident.getEmail() != null && !resident.getEmail().matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            throw new InvalidRegistrationNumberException("Email is invalid");
-        }
-        if (resident.getVehicleList() != null) {
-            resident.getVehicleList().forEach(v -> {
-                v.setResident(resident);
-                v.setAssociationactivatedat(LocalDateTime.now().withNano(0));
-            });
-        }
-
-        return residentRepository.save(resident);
+        return null;
     }
 
     //method to save list of resident
