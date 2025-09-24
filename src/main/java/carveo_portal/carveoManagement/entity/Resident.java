@@ -1,10 +1,12 @@
 package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -15,7 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 // This annotation use for T19 because its need to add on resident details they don't need vehicle details
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Resident {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,13 +42,9 @@ public class Resident {
 
     private String parkingslot;
 
-    public String getparkingslot() {
-        return parkingslot;
-    }
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int noofvehicles = 0;
 
-    public void setparkingslot(String parkingslot) {
-        parkingslot = parkingslot;
-    }
 
     @NotEmpty(message = "Email is Required")
    @Email(message = "Invalid email format")
@@ -59,7 +57,6 @@ public class Resident {
 
     //Mapping of vehicle
     @OneToMany(mappedBy = "resident", cascade = CascadeType.ALL, orphanRemoval = true)
-
     private List<Vehicle> vehicleList = new ArrayList<>();
 
     // Mapping of Visitor
@@ -106,7 +103,6 @@ public class Resident {
         this.lname = lname.trim();
     }
 
-
     public String getFlatno() {
         return flatno;
     }
@@ -137,5 +133,29 @@ public class Resident {
 
     public void setVehicleList(List<Vehicle> vehicleList) {
         this.vehicleList = vehicleList;
+    }
+
+    public int getNoofvehicles() {
+        return noofvehicles;
+    }
+
+    public List<Visitor> getVisitorList() {
+        return visitorList;
+    }
+
+    public void setVisitorList(List<Visitor> visitorList) {
+        this.visitorList = visitorList;
+    }
+
+    public void setNoofvehicles(int noofvehicles) {
+        this.noofvehicles = noofvehicles;
+    }
+
+    public String getParkingslot() {
+        return parkingslot;
+    }
+
+    public void setParkingslot(String parkingslot) {
+        this.parkingslot = parkingslot;
     }
 }
