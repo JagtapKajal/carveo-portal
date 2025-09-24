@@ -2,9 +2,8 @@ package carveo_portal.carveoManagement.entity;
 
 import carveo_portal.carveoManagement.enums.VehicleType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import java.time.LocalDateTime;
 
@@ -21,8 +20,8 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    @NotEmpty(message = "Registration number is required .....")
+    @Column(nullable = false)
+   //@NotEmpty(message = "Registration number is required .....")
     private String registrationnumber;
 
     @Column(nullable = false)
@@ -34,23 +33,90 @@ public class Vehicle {
     @Column(nullable = false)
     private VehicleType type; // CAR / MOPED / BIKE
 
-    private LocalDateTime associationactivatedat;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime intime;
 
-    private LocalDateTime associationdeactivatedat;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime outtime;
 
     @Column(nullable = false)
     private boolean isvehicleactive;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "resident_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)  // Vehicle belongs to one Resident
+    @JoinColumn(nullable = false)// foreign key column
     @JsonBackReference
     private Resident resident;
 
-    public String getRegistrationNumber() {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getRegistrationnumber() {
         return registrationnumber;
     }
 
-    public void setRegistrationNumber(String registrationNumber) {
-        this.registrationnumber = registrationNumber.trim();
+    public void setRegistrationnumber(String registrationnumber) {
+        this.registrationnumber = registrationnumber;
+    }
+
+    public String getVname() {
+        return vname;
+    }
+
+    public void setVname(String vname) {
+        this.vname = vname;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public VehicleType getType() {
+        return type;
+    }
+
+    public void setType(VehicleType type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getIntime() {
+        return intime;
+    }
+
+    public void setIntime(LocalDateTime intime) {
+        this.intime = intime;
+    }
+
+    public LocalDateTime getOuttime() {
+        return outtime;
+    }
+
+    public void setOuttime(LocalDateTime outtime) {
+        this.outtime = outtime;
+    }
+
+    public boolean isIsvehicleactive() {
+        return isvehicleactive;
+    }
+
+    public void setIsvehicleactive(boolean isvehicleactive) {
+        this.isvehicleactive = isvehicleactive;
+    }
+
+    public Resident getResident() {
+        return resident;
+    }
+
+    public void setResident(Resident resident) {
+        this.resident = resident;
     }
 }
