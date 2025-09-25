@@ -114,6 +114,7 @@ public class ResidentController {
         return new ResponseEntity<>(resident3,HttpStatus.OK);
     }
 
+    // API to get resident by its type
     @GetMapping("/filterByResidentType")
     public ResponseEntity<List<Resident>> filterByResidentType(@RequestParam("residentType") String residenttype){
         List<Resident> residentList = residentService.filterByResidentType(residenttype);
