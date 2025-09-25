@@ -208,6 +208,7 @@ public class ResidentServiceImpl implements ResidentService {
         return resident2;
     }
 
+    // Find resident by resident type
     @Override
     public List<Resident> filterByResidentType(String residenttype) {
         ResidentType residenttype1 = ResidentType.valueOf(residenttype.toUpperCase());
