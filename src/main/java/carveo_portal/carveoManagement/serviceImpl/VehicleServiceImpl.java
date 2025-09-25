@@ -22,6 +22,7 @@ public class VehicleServiceImpl implements VehicleService {
         this.residentRepository = residentRepository;
     }
 
+    // method to create save vehicles
     @Override
     public Vehicle createVehicle(Vehicle vehicle) {
 
