@@ -41,7 +41,9 @@ public interface ResidentService {
     //get resident by flatno
     public Resident getResidentByFlatNo(String flatno, Resident resident);
 
+    // get Resident parking slot
     public Resident getResidentByParkingLot(String parkingslot, Resident resident);
 
+    // filter resident by resident type
     List<Resident> filterByResidentType(String residenttype);
 }
