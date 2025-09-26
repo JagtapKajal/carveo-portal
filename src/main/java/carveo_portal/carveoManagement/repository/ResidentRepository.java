@@ -22,7 +22,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
     // get resident by flat no
    Resident findByFlatno(String flatno);
 
-
    // get resident by  firstname
     Resident findByFname(String fname);
 
