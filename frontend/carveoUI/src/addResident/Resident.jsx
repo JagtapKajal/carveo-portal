@@ -8,7 +8,9 @@ function Resident() {
     email: "",
     mobileno: "",
     flatno: "",
-    residenttype: ""
+    residenttype: "",
+    parkingslot: "",
+    noofvehicles: ""
   });
 
   const [message, setMessage] = useState("");
@@ -23,9 +25,10 @@ function Resident() {
 
     const payload = {
       ...formData,
-      mobileno: Number(formData.mobileno), // convert to number
+      mobileno: Number(formData.mobileno),
+      noofvehicles: Number(formData.noofvehicles || 0), // convert to number
       residenttype: formData.residenttype.toUpperCase(), // match Enum in backend
-      vehicleList: [] // backend expects vehicle list
+      vehicleList: [], // backend expects vehicle list
     };
 
     try {
@@ -34,7 +37,7 @@ function Resident() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(payload),
         }
       );
 
@@ -46,7 +49,9 @@ function Resident() {
           email: "",
           mobileno: "",
           flatno: "",
-          residenttype: ""
+          residenttype: "",
+          parkingslot: "",
+          noofvehicles: ""
         });
       } else {
         const errorText = await response.text();
@@ -64,7 +69,9 @@ function Resident() {
       email: "",
       mobileno: "",
       flatno: "",
-      residenttype: ""
+      residenttype: "",
+      parkingslot: "",
+      noofvehicles: ""
     });
     setMessage("");
   };
@@ -113,6 +120,23 @@ function Resident() {
           onChange={handleChange}
           required
         />
+        <input
+          type="text"
+          name="parkingslot"
+          placeholder="parkingslot"
+          value={formData.parkingslot}
+          onChange={handleChange}
+          required
+        />
+        <input
+          type="text"
+          name="noofvehicles"
+          placeholder="noofvehicles"
+          value={formData.noofvehicles}
+          onChange={handleChange}
+          required
+        />
+
         <select
           name="residenttype"
           value={formData.residenttype}
@@ -120,8 +144,8 @@ function Resident() {
           required
         >
           <option value="">Select Resident Type</option>
-          <option value="OWNER">Owner</option>
-          <option value="TENANT">Tenant</option>
+          <option value="OWNER">OWNER</option>
+          <option value="TENANT">TENANT</option>
         </select>
 
         <div className="form-buttons">
