@@ -35,6 +35,16 @@ public class Visitor {
     @Enumerated(EnumType.STRING)
     private VisitorType visitorType; //Guest / Delivery
 
+    @Transient
+    private Long residentId;
+
+    public Long getResidentId() {
+        return residentId;
+    }
+
+    public void setResidentId(Long residentId) {
+        this.residentId = residentId;
+    }
 
     // Mapping with Resident
     @ManyToOne

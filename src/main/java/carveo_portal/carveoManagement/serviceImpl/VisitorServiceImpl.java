@@ -135,6 +135,26 @@ public class VisitorServiceImpl implements VisitorService {
         }
     }
 
+    @Override
+    public Visitor saveOrUpdateVisitor(Visitor visitor) {
+        // Set resident if residentId is provided
+        if (visitor.getResidentId() != null) {
+            Resident resident = residentRepository.findById(Math.toIntExact(visitor.getResidentId()))
+                    .orElseThrow(() -> new RuntimeException(
+                            "Resident not found with id: " + visitor.getResidentId()));
+            visitor.setResident(resident);
+        }
+
+        // Calculate duration if timeout is provided
+        if (visitor.getTimein() != null && visitor.getTimeout() != null) {
+            Duration duration = Duration.between(visitor.getTimein(), visitor.getTimeout());
+            visitor.setVisitorduration(String.format("%02d:%02d", duration.toHours(), duration.toMinutesPart()));
+            visitor.setIsactivevisitor(false);
+        }
+
+        return visitorRepository.save(visitor);
+
+    }
 
 
 }
