@@ -66,6 +66,7 @@ public class Resident {
 
 
 
+
     public void addVehicle(Vehicle vehicle) {
         vehicle.setResident(this);
         this.vehicleList.add(vehicle);
