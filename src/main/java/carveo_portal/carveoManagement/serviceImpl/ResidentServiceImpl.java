@@ -57,7 +57,7 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Override
     public Resident saveResident(Resident resident) {
-        return null;
+        return residentRepository.save(resident);
     }
 
     //method to save list of resident
