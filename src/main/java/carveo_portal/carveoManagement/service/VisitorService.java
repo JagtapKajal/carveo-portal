@@ -28,5 +28,6 @@ public interface VisitorService {
     // method to know visitor is active or not
     public List<Visitor> getActiveVisitors(List<VisitorType> types);
 
+    public Visitor saveOrUpdateVisitor(Visitor visitor);
 
 }
