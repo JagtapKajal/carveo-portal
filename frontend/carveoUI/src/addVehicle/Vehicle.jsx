@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./addVehicle.css";
+
+
 const Vehicle = () => {
   const [vehicle, setVehicle] = useState({
     registrationnumber: "",
@@ -40,7 +42,8 @@ const Vehicle = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <div className="vehicle-container">
+    <form className= "vehicle-form" onSubmit={handleSubmit}>
       <h2>Add Vehicle</h2>
 
       <input
@@ -106,8 +109,14 @@ const Vehicle = () => {
         required
       />
 
-      <button type="submit">Submit</button>
+      <div className="vehicle-form-buttons">
+        <button type="submit">Submit</button>
+        <button type="button" className="cancel-btn">
+          Cancel
+        </button>
+      </div>
     </form>
+    </div>
   );
 };
 
