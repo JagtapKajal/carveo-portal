@@ -1,0 +1,40 @@
+/* Container for the boxes */
+.dashboard-cards {
+  display: flex;
+  justify-content: center;   /* center the boxes */
+  gap: 20px;                 /* spacing between boxes */
+  margin-top: 30px;
+  flex-wrap: wrap;            /* allow wrapping on smaller screens */
+}
+
+/* Individual card box */
+.dashboard-card {
+  background-color: white;
+  color: #333;
+  width: 200px;
+  height: 120px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Hover effect */
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Card number styling */
+.dashboard-card span {
+  margin-top: 10px;
+  font-size: 22px;
+  font-weight: bold;
+  color: #2ecc71; /* green accent */
+}
