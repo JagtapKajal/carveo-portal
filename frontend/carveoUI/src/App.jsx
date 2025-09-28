@@ -1,25 +1,27 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Resident from './addResident/Resident'
-import './App.css'
-import Visitor from './addVisitor/Visitor'
-import Vehicle from './addVehicle/Vehicle'
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Resident from "./Components/addResident/Resident";
+import Visitor from "./Components/addVisitor/Visitor";
+import Vehicle from "./Components/addVehicle/Vehicle";
+import Navbar from "./Components/Navbar";  // 👈 create
+import Dashboard from "./Components/Dashboard"; 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <Resident/>
-        <Visitor/>
-        <Vehicle/>
+    <Router>
+      {/* Navbar stays at top */}
+      <Navbar />
+
+      {/* Page container */}
+      <div className="p-6">
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/residents" element={<Resident />} />
+          <Route path="/vehicles" element={<Vehicle />} />
+          <Route path="/visitors" element={<Visitor />} />
+        </Routes>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;
