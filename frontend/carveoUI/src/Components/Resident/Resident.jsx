@@ -1,92 +1,106 @@
+// ResidentPage.jsx
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import "./addResident.css";
+import ResidentUpdateForm from "./ResidentUpdateForm"; // import form
+import "./Resident.css";
 
 const Resident = () => {
   const [residents, setResidents] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 7; // ✅ only 7 rows per page
+  const [selectedResident, setSelectedResident] = useState(null); // For editing
+  const recordsPerPage = 7;
 
   useEffect(() => {
-    axios.get("http://localhost:8080/residents/getAllResident") 
-      .then((response) => {
-        setResidents(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching residents:", error);
+    fetch("http://localhost:8080/residents/getAllResident")
+      .then((res) => res.json())
+      .then((data) => {
+        setResidents(data);
+        setLoading(false);
       });
   }, []);
 
-  // Calculate data for current page
-  const indexOfLastRow = currentPage * rowsPerPage;
-  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = residents.slice(indexOfFirstRow, indexOfLastRow);
+  const handleUpdateClick = (resident) => {
+    setSelectedResident(resident); // open form
+  };
 
-  // Calculate total pages
-  const totalPages = Math.ceil(residents.length / rowsPerPage);
+  const handleFormClose = () => {
+    setSelectedResident(null);
+    // optionally reload data after update
+    fetch("http://localhost:8080/residents/getAllResident")
+      .then((res) => res.json())
+      .then((data) => setResidents(data));
+  };
 
-  const goToPage = (pageNumber) => setCurrentPage(pageNumber);
+  // Pagination logic
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = residents.slice(indexOfFirstRecord, indexOfLastRecord);
+  const totalPages = Math.ceil(residents.length / recordsPerPage);
 
   return (
-    <div className="resident-list-container">
-      <h2>Resident List</h2>
-      <table className="resident-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Flat No</th>
-            <th>Mobile</th>
-            <th>Email</th>
-            <th>Parking Slot</th>
-            <th>No of Vehicles</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRows.map((res) => (
-            <tr key={res.id}>
-              <td>{res.id}</td>
-              <td>{res.fname}</td>
-              <td>{res.lname}</td>
-              <td>{res.flatno}</td>
-              <td>{res.mobileno}</td>
-              <td>{res.email}</td>
-              <td>{res.parkingslot}</td>
-              <td>{res.noofvehicles}</td>
-              <td>{res.residenttype}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="resident-page">
+      <h2>Resident Details</h2>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <>
+          <table className="resident-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Flat No</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>Type</th>
+                <th>No of Vehicles</th>
+                <th>Parking Slot</th>
+                <th>Action</th> {/* Update button */}
+              </tr>
+            </thead>
+            <tbody>
+              {currentRecords.map((resident) => (
+                <tr key={resident.id}>
+                  <td>{resident.id}</td>
+                  <td>{resident.fname}</td>
+                  <td>{resident.lname}</td>
+                  <td>{resident.flatno}</td>
+                  <td>{resident.mobileno}</td>
+                  <td>{resident.email}</td>
+                  <td>{resident.residenttype}</td>
+                  <td>{resident.noofvehicles}</td>
+                  <td>{resident.parkingslot}</td>
+                  <td>
+                    <button onClick={() => handleUpdateClick(resident)}>Update</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
-      {/* Pagination Controls */}
-      <div className="pagination">
-        <button 
-          onClick={() => goToPage(currentPage - 1)} 
-          disabled={currentPage === 1}
-        >
-          Prev
-        </button>
+          {/* Pagination */}
+          <div className="pagination">
+            {Array.from({ length: totalPages }, (_, index) => (
+              <button
+                key={index + 1}
+                className={currentPage === index + 1 ? "active" : ""}
+                onClick={() => setCurrentPage(index + 1)}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
 
-        {[...Array(totalPages).keys()].map((num) => (
-          <button
-            key={num + 1}
-            onClick={() => goToPage(num + 1)}
-            className={currentPage === num + 1 ? "active" : ""}
-          >
-            {num + 1}
-          </button>
-        ))}
-
-        <button 
-          onClick={() => goToPage(currentPage + 1)} 
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
+      {/* Open update form if a resident is selected */}
+      {selectedResident && (
+        <ResidentUpdateForm
+          resident={selectedResident}
+          onClose={handleFormClose}
+        />
+      )}
     </div>
   );
 };
