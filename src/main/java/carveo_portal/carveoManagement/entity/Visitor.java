@@ -38,6 +38,16 @@ public class Visitor {
     @Transient
     private Long residentId;
 
+    private String flatno;
+
+    public String getFlatno() {
+        return flatno;
+    }
+
+    public void setFlatno(String flatno) {
+        this.flatno = flatno;
+    }
+
     public Long getResidentId() {
         return residentId;
     }
