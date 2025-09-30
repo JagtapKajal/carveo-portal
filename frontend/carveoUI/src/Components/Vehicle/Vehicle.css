@@ -1,0 +1,76 @@
+.vehicle-page {
+  padding: 20px;
+  background: #f4f6f9;
+  min-height: 100vh;
+}
+
+.vehicle-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #333;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Table styling */
+.vehicle-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 auto;
+  color: black;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.vehicle-table th,
+.vehicle-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.vehicle-table th {
+  background: #2a5298;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+}
+
+.vehicle-table tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.vehicle-table tr:hover {
+  background: #eaf2f8;
+  transition: background 0.3s ease;
+}
+
+/* Pagination */
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #3498db;
+  color: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s ease;
+}
+
+.pagination button:hover {
+  background: #2980b9;
+}
+
+.pagination button.active {
+  background: #1abc9c;
+  font-weight: bold;
+}
