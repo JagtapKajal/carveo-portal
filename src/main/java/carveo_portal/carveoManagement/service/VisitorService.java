@@ -1,5 +1,6 @@
 package carveo_portal.carveoManagement.Service;
 
+import carveo_portal.carveoManagement.VisitorDTO;
 import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
@@ -31,4 +32,5 @@ public interface VisitorService {
     //to save visitor
     public Visitor saveOrUpdateVisitor(Visitor visitor);
 
+    public List<VisitorDTO> getAllVisitor();
 }

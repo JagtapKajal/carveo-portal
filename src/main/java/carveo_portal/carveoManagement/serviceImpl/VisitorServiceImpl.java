@@ -1,6 +1,7 @@
 package carveo_portal.carveoManagement.serviceImpl;
 
 import carveo_portal.carveoManagement.Service.VisitorService;
+import carveo_portal.carveoManagement.VisitorDTO;
 import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Resident;
@@ -154,6 +155,33 @@ public class VisitorServiceImpl implements VisitorService {
 
         return visitorRepository.save(visitor);
 
+    }
+
+    @Override
+    public List<VisitorDTO> getAllVisitor() {
+        List<Visitor> visitors = visitorRepository.findAll();
+
+        return visitors.stream().map(visitor -> {
+            VisitorDTO dto = new VisitorDTO();
+            dto.setId(visitor.getId());
+            dto.setVisitorname(visitor.getVisitorname());
+            dto.setVehiclename(visitor.getVehiclename());
+            dto.setVehicleRegistrationNumber(visitor.getVehicleRegistrationNumber());
+            dto.setVisitpurpose(visitor.getVisitpurpose());
+            dto.setTimein(visitor.getTimein());
+            dto.setTimeout(visitor.getTimeout());
+            dto.setPhonenumber(visitor.getPhonenumber());
+            dto.setVisitorType(visitor.getVisitorType());
+            dto.setFlatno(visitor.getResident() != null ? visitor.getResident().getFlatno() : null);
+
+            // ✅ Resident mapping
+            if (visitor.getResident() != null) {
+                dto.setResidentId(visitor.getResident().getId());
+                dto.setResidentname(visitor.getResident().getFname() + " " + visitor.getResident().getLname());
+            }
+
+            return dto;
+        }).toList();
     }
 
 
