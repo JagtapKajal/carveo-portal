@@ -64,12 +64,14 @@ public class Resident {
     @JsonManagedReference
     private List<Visitor> visitorList = new ArrayList<>();
 
-
-
-
     public void addVehicle(Vehicle vehicle) {
         vehicle.setResident(this);
         this.vehicleList.add(vehicle);
+    }
+
+    @Transient
+    public String getFullName() {
+        return this.fname + " " + this.lname;
     }
 
     public long getMobileno() {
