@@ -1,5 +1,6 @@
 package carveo_portal.carveoManagement.controller;
 
+import carveo_portal.carveoManagement.VisitorDTO;
 import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
@@ -17,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/visitors")
 public class VisitorController {
 
@@ -75,5 +76,9 @@ public class VisitorController {
         return ResponseEntity.ok(updatedVisitor);
 }
 
+    @GetMapping("getAllVisitors")
+    public List<VisitorDTO> getAllVisitors() {
+        return visitorServiceImpl.getAllVisitor();
+    }
 
 }
