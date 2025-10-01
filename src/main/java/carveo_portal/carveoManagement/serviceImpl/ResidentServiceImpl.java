@@ -214,4 +214,27 @@ public class ResidentServiceImpl implements ResidentService {
         ResidentType residenttype1 = ResidentType.valueOf(residenttype.toUpperCase());
         return residentRepository.findByResidenttype(residenttype1);
     }
+
+
+    //Method to update resident by id
+    @Override
+    public Resident UpdateResidentById(int id, Resident resident) {
+        Resident resident1 = residentRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Id not found with" + id));
+        if(resident == null){
+            throw new ResourceNotFoundException("Resident not found with "+id);
+
+        }
+        // update fields
+        resident1.setFlatno(resident.getFlatno());
+        resident1.setMobileno(resident.getMobileno());
+        resident1.setEmail(resident.getEmail());
+        resident1.setFname(resident.getFname());
+        resident1.setLname(resident.getLname());
+        resident1.setNoofvehicles(resident.getNoofvehicles());
+        resident1.setParkingslot(resident.getParkingslot());
+        resident1.setResidenttype(resident.getResidenttype());
+
+        return residentRepository.save(resident1);
+    }
 }
