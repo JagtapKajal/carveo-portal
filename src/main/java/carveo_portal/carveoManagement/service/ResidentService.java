@@ -46,4 +46,7 @@ public interface ResidentService {
 
     // filter resident by resident type
     List<Resident> filterByResidentType(String residenttype);
+
+    // Method to update resident by id
+    Resident UpdateResidentById(int id, Resident resident);
 }
