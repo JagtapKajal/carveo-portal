@@ -1,9 +1,11 @@
 package carveo_portal.carveoManagement;
 
 import carveo_portal.carveoManagement.enums.VisitorType;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
+@Component
 public class VisitorDTO {
 
     private int id;
