@@ -76,6 +76,7 @@ public class VisitorController {
         return ResponseEntity.ok(updatedVisitor);
 }
 
+    //API to get all visitors
     @GetMapping("getAllVisitors")
     public List<VisitorDTO> getAllVisitors() {
         return visitorServiceImpl.getAllVisitor();
