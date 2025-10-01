@@ -13,6 +13,7 @@ const ResidentUpdateForm = ({ resident, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // backend url to update resident
     fetch(`http://localhost:8080/residents/UpdateResident/${resident.id}`, {
       method: "PUT",
       headers: {
@@ -23,7 +24,7 @@ const ResidentUpdateForm = ({ resident, onClose }) => {
       .then((res) => {
         if (res.ok) {
           alert("Resident updated successfully");
-          onClose(); // close form and refresh table
+          onClose(); 
         } else {
           alert("Update failed");
         }
