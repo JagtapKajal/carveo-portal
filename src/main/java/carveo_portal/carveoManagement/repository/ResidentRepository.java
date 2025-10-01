@@ -30,4 +30,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Integer> {
 
     // get resident by resident type
     List<Resident> findByResidenttype(ResidentType residenttype);
+
+
 }
