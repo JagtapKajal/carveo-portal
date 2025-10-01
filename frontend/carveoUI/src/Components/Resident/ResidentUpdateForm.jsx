@@ -13,7 +13,7 @@ const ResidentUpdateForm = ({ resident, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`http://localhost:8080/api/residents/${resident.id}`, {
+    fetch(`http://localhost:8080/residents/UpdateResident/${resident.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
