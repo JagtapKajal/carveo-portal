@@ -121,5 +121,12 @@ public class ResidentController {
         return new ResponseEntity<>(residentList, HttpStatus.OK);
     }
 
+
+    //Update resident by id
+    @PutMapping("/UpdateResident/{id}")
+    public ResponseEntity<Resident> UpdateResidentById(@PathVariable("id") int id, @RequestBody Resident resident){
+        Resident resident2 = residentService.UpdateResidentById(id, resident);
+        return new ResponseEntity<>(resident2, HttpStatus.OK);
+    }
 }
 
