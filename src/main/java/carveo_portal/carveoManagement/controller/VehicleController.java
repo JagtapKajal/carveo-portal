@@ -27,11 +27,8 @@ public class VehicleController {
          return new ResponseEntity<>(savevehicle, HttpStatus.CREATED);
     }
 
-//    @GetMapping("/getAllVehicle")
-//    public ResponseEntity<List<Vehicle>> getAllVehicles(){
-//        return ResponseEntity.ok(vehicleService.getAllVehicles());
-//    }
 
+    //API to get all vehicles
     @GetMapping("/getAllVehicles")
     public ResponseEntity<List<VehicleDTO>> getAllVehicle() {
         List<VehicleDTO> vehicleDTOList = vehicleService.getAllVehicle();
