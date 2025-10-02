@@ -14,5 +14,9 @@ public interface VehicleService {
 
 //    public List<Vehicle> getAllVehicles();
 
+    // Method to get all vehicles
     public List<VehicleDTO> getAllVehicle();
+
+    // method to update vehicles by resident id
+    public Vehicle updateVehicle(Long id, Vehicle vehicle);
 }
