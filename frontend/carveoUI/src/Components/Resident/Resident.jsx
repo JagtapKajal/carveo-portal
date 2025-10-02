@@ -10,25 +10,45 @@ const Resident = () => {
   const [selectedResident, setSelectedResident] = useState(null); // For editing
   const recordsPerPage = 7;
 
-  useEffect(() => {
+  const fetchResidents = () => {
     fetch("http://localhost:8080/residents/getAllResident")
       .then((res) => res.json())
       .then((data) => {
         setResidents(data);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchResidents();
   }, []);
 
+  // Handle update
   const handleUpdateClick = (resident) => {
-    setSelectedResident(resident); // open form
+    setSelectedResident(resident);
+  };
+
+  // Handle delete
+  const handleDeleteClick = (id) => {
+    if (window.confirm("Are you sure you want to delete this resident?")) {
+      fetch(`http://localhost:8080/residents/DeleteResident/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (res.ok) {
+            alert("Resident deleted successfully");
+            fetchResidents(); // refresh data
+          } else {
+            alert("Delete failed");
+          }
+        })
+        .catch((err) => console.error("Error deleting resident:", err));
+    }
   };
 
   const handleFormClose = () => {
     setSelectedResident(null);
-    // optionally reload data after update
-    fetch("http://localhost:8080/residents/getAllResident")
-      .then((res) => res.json())
-      .then((data) => setResidents(data));
+    fetchResidents(); // reload after update
   };
 
   // Pagination logic
@@ -56,7 +76,7 @@ const Resident = () => {
                 <th>Type</th>
                 <th>No of Vehicles</th>
                 <th>Parking Slot</th>
-                <th>Action</th> {/* Update button */}
+                <th>Actions</th> {/* Update + Delete */}
               </tr>
             </thead>
             <tbody>
@@ -72,7 +92,18 @@ const Resident = () => {
                   <td>{resident.noofvehicles}</td>
                   <td>{resident.parkingslot}</td>
                   <td>
-                    <button onClick={() => handleUpdateClick(resident)}>Update</button>
+                    <button
+                      className="update-btn"
+                      onClick={() => handleUpdateClick(resident)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDeleteClick(resident.id)}
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               ))}
