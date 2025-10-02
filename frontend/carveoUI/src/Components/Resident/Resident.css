@@ -179,3 +179,28 @@
     opacity: 1;
   }
 }
+.update-btn {
+  margin-right: 0.5rem;
+  background-color: #2196f3;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 1px solid #242323;
+}
+
+.update-btn:hover {
+  background-color: #2379db;
+}
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+ border: 1px solid #242323;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
