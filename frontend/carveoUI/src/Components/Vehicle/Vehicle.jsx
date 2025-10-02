@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Vehicle.css";
+import VehicleUpdateForm from "./VehicleUpdateForm ";
 
 const Vehicle = () => {
   const [vehicles, setVehicles] = useState([]);
@@ -7,7 +8,16 @@ const Vehicle = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 7;
 
+  // For update form modal
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [selectedVehicleId, setSelectedVehicleId] = useState(null);
+
   useEffect(() => {
+    fetchVehicles();
+  }, []);
+
+  const fetchVehicles = () => {
+    setLoading(true);
     fetch("http://localhost:8080/vehicles/getAllVehicles")
       .then((res) => res.json())
       .then((data) => {
@@ -18,7 +28,27 @@ const Vehicle = () => {
         console.error("Error fetching vehicles:", err);
         setLoading(false);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this vehicle?")) {
+      fetch(`http://localhost:8080/vehicles/delete/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => {
+          if (res.ok) fetchVehicles();
+          else alert("Failed to delete vehicle");
+        })
+        .catch((err) => console.error(err));
+    }
+  };
+
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+
+  const handleUpdate = (vehicle) => {
+    setSelectedVehicle(vehicle);
+    setShowUpdateForm(true);
+  };
 
   // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -45,6 +75,7 @@ const Vehicle = () => {
                 <th>Out Time</th>
                 <th>Status</th>
                 <th>Resident</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -66,7 +97,19 @@ const Vehicle = () => {
                       : "—"}
                   </td>
                   <td>{vehicle.isvehicleactive ? "Active" : "Inactive"}</td>
-                   <td>{vehicle.residentName || "—"}</td>
+                  <td>{vehicle.residentName || "—"}</td>
+                  <td>
+                    <button className="update-btn" onClick={() => handleUpdate(vehicle)}>
+  Update
+</button>
+
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(vehicle.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -84,6 +127,17 @@ const Vehicle = () => {
               </button>
             ))}
           </div>
+
+          {/* Vehicle Update Form Modal */}
+          {showUpdateForm && selectedVehicle && (
+  <VehicleUpdateForm
+    vehicle={selectedVehicle}
+    onClose={() => setShowUpdateForm(false)}
+    onUpdated={fetchVehicles}
+    residentsList={residents}
+  />
+)}
+
         </>
       )}
     </div>

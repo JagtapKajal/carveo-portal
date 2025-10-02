@@ -49,4 +49,6 @@ public interface ResidentService {
 
     // Method to update resident by id
     Resident UpdateResidentById(int id, Resident resident);
+
+
 }
