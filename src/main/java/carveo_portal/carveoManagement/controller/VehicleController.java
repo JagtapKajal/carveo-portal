@@ -35,4 +35,10 @@ public class VehicleController {
         return new ResponseEntity<>(vehicleDTOList,HttpStatus.OK);
     }
 
+    //API to update vehicle by resident id
+    @PutMapping("/UpdateVehicleById/{id}")
+    public ResponseEntity<Vehicle> updateVehicleById(@PathVariable("id") Long id, @RequestBody Vehicle vehicle){
+    Vehicle updateVehicle = vehicleService.updateVehicle(id, vehicle);
+    return new ResponseEntity<>(updateVehicle,HttpStatus.OK);
+    }
 }
