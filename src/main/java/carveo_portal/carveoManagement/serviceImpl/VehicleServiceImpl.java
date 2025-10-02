@@ -4,6 +4,7 @@ import carveo_portal.carveoManagement.Service.VehicleService;
 import carveo_portal.carveoManagement.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
+import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;
 import carveo_portal.carveoManagement.repository.ResidentRepository;
 import carveo_portal.carveoManagement.repository.VehicleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,29 @@ public class VehicleServiceImpl implements VehicleService {
 
             return dto;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public Vehicle updateVehicle(Long id, Vehicle vehicle) {
+        Vehicle v1 = vehicleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found"));
+
+        v1.setRegistrationnumber(vehicle.getRegistrationnumber());
+        v1.setVname(vehicle.getVname());
+        v1.setColor(vehicle.getColor());
+        v1.setType(vehicle.getType());
+        v1.setIntime(vehicle.getIntime());
+        v1.setOuttime(vehicle.getOuttime());
+        v1.setIsvehicleactive(vehicle.isIsvehicleactive());
+
+        // update mapped resident if passed
+        if (vehicle.getResident() != null) {
+            Resident r = residentRepository.findById(Math.toIntExact(vehicle.getResident().getId()))
+                    .orElseThrow(() -> new ResourceNotFoundException("Resident not found"));
+            v1.setResident(r);
+        }
+
+        return vehicleRepository.save(v1);
     }
 
 //    public Vehicle createVehicle(Vehicle vehicle) {
