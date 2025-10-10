@@ -82,6 +82,13 @@ public class VehicleServiceImpl implements VehicleService {
         v1.setOuttime(vehicle.getOuttime());
         v1.setIsvehicleactive(vehicle.isIsvehicleactive());
 
+
+        if (vehicle.getResident() != null) {
+            Resident r = residentRepository.findById(Math.toIntExact(vehicle.getResident().getId()))
+                    .orElseThrow(() -> new ResourceNotFoundException("Resident not found"));
+            v1.setResident(r);
+        }
+
         return vehicleRepository.save(v1);
     }
 
