@@ -36,7 +36,7 @@ const handleSubmit = (e) => {
     .then((res) => {
       if (res.ok) {
         alert("Vehicle updated successfully!");
-        onUpdated(); // refresh list
+        onUpdate(); // refresh list
         onClose(); // close modal
       } else {
         alert("Failed to update vehicle.");
