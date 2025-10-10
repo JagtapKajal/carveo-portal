@@ -99,9 +99,12 @@ const Vehicle = () => {
                   <td>{vehicle.isvehicleactive ? "Active" : "Inactive"}</td>
                   <td>{vehicle.residentName || "—"}</td>
                   <td>
-                    <button className="update-btn" onClick={() => handleUpdate(vehicle)}>
-  Update
-</button>
+                    <button
+                      className="update-btn"
+                      onClick={() => handleUpdate(vehicle)}
+                    >
+                      Update
+                    </button>
 
                     <button
                       className="delete-btn"
@@ -130,18 +133,15 @@ const Vehicle = () => {
 
           {/* Vehicle Update Form Modal */}
           {showUpdateForm && selectedVehicle && (
-  <VehicleUpdateForm
-    vehicle={selectedVehicle}
-    onClose={() => setShowUpdateForm(false)}
-    onUpdated={fetchVehicles}
-    residentsList={residents}
-  />
-)}
-
+            <VehicleUpdateForm
+              vehicle={selectedVehicle}
+              onClose={() => setShowUpdateForm(false)}
+              onUpdated={fetchVehicles}
+            />
+          )}
         </>
       )}
     </div>
   );
 };
-
 export default Vehicle;
