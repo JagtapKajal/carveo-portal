@@ -1,88 +1,91 @@
 import React, { useState, useEffect } from "react";
 import "./Vehicle.css";
 
-const VehicleUpdateForm = ({ vehicle, onClose }) => {
-  const [formData, setFormData] = useState({
-    ...vehicle,
-    residentId: vehicle.resident?.id || "",
+const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
+  const [vehicle, setVehicle] = useState({
+    registrationnumber: "",
+    vname: "",
+    color: "",
+    type: "",
+    intime: "",
+    outtime: "",
+    isvehicleactive: true,
+    resident: { id: "" },
   });
-  const [residents, setResidents] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:8080/residents/getAllResident")
-      .then((res) => res.json())
-      .then((data) => setResidents(data));
-  }, []);
+    if (vehicleData) setVehicle(vehicleData);
+  }, [vehicleData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setVehicle({ ...vehicle, [name]: value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleResidentChange = (e) => {
+    setVehicle({ ...vehicle, resident: { id: e.target.value } });
+  };
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const payload = {
-      registrationnumber: formData.registrationnumber,
-      vname: formData.vname,
-      color: formData.color,
-      type: formData.type,
-      intime: formData.intime,
-      outtime: formData.outtime,
-      isvehicleactive:
-        formData.isvehicleactive === "true" ||
-        formData.isvehicleactive === true,
-      resident: {
-        id: parseInt(formData.residentId), 
-      },
-    };
-
-    fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
+  fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(vehicle),
+  })
+    .then((res) => {
+      if (res.ok) {
+        alert("Vehicle updated successfully!");
+        onUpdated(); // refresh list
+        onClose(); // close modal
+      } else {
+        alert("Failed to update vehicle.");
+      }
     })
-      .then((res) => {
-        if (res.ok) {
-          alert("Vehicle updated successfully");
-          onClose();
-        } else {
-          alert("Update failed");
-        }
-      })
-      .catch((err) => console.error(err));
-  };
+    .catch((err) => console.error("Error updating vehicle:", err));
+};
+
 
   return (
     <div className="form-overlay">
-      <form className="vehicle-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="vehicle-form">
         <h3>Update Vehicle</h3>
 
-        <label>Registration No</label>
+        <label>Registration Number</label>
         <input
+          type="text"
           name="registrationnumber"
-          value={formData.registrationnumber}
+          value={vehicle.registrationnumber}
           onChange={handleChange}
         />
 
-        <label>Name</label>
-        <input name="vname" value={formData.vname} onChange={handleChange} />
+        <label>Vehicle Name</label>
+        <input
+          type="text"
+          name="vname"
+          value={vehicle.vname}
+          onChange={handleChange}
+        />
 
         <label>Color</label>
-        <input name="color" value={formData.color} onChange={handleChange} />
+        <input
+          type="text"
+          name="color"
+          value={vehicle.color}
+          onChange={handleChange}
+        />
 
         <label>Type</label>
-        <select name="type" value={formData.type} onChange={handleChange}>
+        <select name="type" value={vehicle.type} onChange={handleChange}>
           <option value="CAR">CAR</option>
           <option value="BIKE">BIKE</option>
-          <option value="MOPED">MOPED</option>
         </select>
 
         <label>In Time</label>
         <input
           type="datetime-local"
           name="intime"
-          value={formData.intime}
+          value={vehicle.intime}
           onChange={handleChange}
         />
 
@@ -90,37 +93,36 @@ const VehicleUpdateForm = ({ vehicle, onClose }) => {
         <input
           type="datetime-local"
           name="outtime"
-          value={formData.outtime}
+          value={vehicle.outtime}
           onChange={handleChange}
         />
 
-        <label>Status</label>
+        <label>Active Status</label>
         <select
           name="isvehicleactive"
-          value={formData.isvehicleactive}
-          onChange={handleChange}
+          value={vehicle.isvehicleactive}
+          onChange={(e) =>
+            setVehicle({
+              ...vehicle,
+              isvehicleactive: e.target.value === "true",
+            })
+          }
         >
-          <option value={true}>Active</option>
-          <option value={false}>Inactive</option>
+          <option value="true">Active</option>
+          <option value="false">Inactive</option>
         </select>
 
-        <label>Resident</label>
-        <select
+        <label>Resident ID</label>
+        <input
+          type="number"
           name="residentId"
-          value={formData.residentId}
-          onChange={handleChange}
-        >
-          <option value="">-- Select Resident --</option>
-          {residents.map((r) => (
-            <option key={r.id} value={r.id}>
-              {r.fname} {r.lname}
-            </option>
-          ))}
-        </select>
+          value={vehicle.resident.id}
+          onChange={handleResidentChange}
+        />
 
         <div className="form-buttons">
-          <button type="submit">Update</button>
-          <button type="button" onClick={onClose}>
+          <button type="submit" onClick={onUpdate}>Update</button>
+          <button type="button" onClick={onCancel}>
             Cancel
           </button>
         </div>
