@@ -184,5 +184,29 @@ public class VisitorServiceImpl implements VisitorService {
         }).toList();
     }
 
+    //method to update visitors by id
+    @Override
+    public Visitor updateVisitor(int id, Visitor visitor) {
+        Visitor visitor1 = visitorRepository.findById(id).orElseThrow(()->
+                new RuntimeException("Visitors not found with id " +id));
+        visitor1.setIsactivevisitor(visitor.isIsactivevisitor());
+        visitor1.setVisitorType(visitor.getVisitorType());
+        visitor1.setTimeout(visitor.getTimeout());
+        visitor1.setPhonenumber(visitor.getPhonenumber());
+        visitor1.setVisitorduration(visitor.getVisitorduration());
+        visitor1.setTimein(visitor.getTimein());
+        visitor1.setVehiclename(visitor.getVehiclename());
+        visitor1.setResident(visitor.getResident());
+        visitor1.setFlatno(visitor.getFlatno());
+        visitor1.setVisitpurpose(visitor.getVisitpurpose());
+        visitor1.setResidentId(visitor.getResidentId());
+        return visitorRepository.save(visitor1);
+    }
+
+    @Override
+    public String deleteVisitors(int id) {
+        return "";
+    }
+
 
 }

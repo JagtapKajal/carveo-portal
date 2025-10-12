@@ -37,4 +37,7 @@ public interface VisitorService {
 
     //method to update visitors by id
     public Visitor updateVisitor(int id, Visitor visitor);
+
+    //method to delete visitors by id
+    public String deleteVisitors(int id);
 }
