@@ -1,4 +1,4 @@
-package carveo_portal.carveoManagement.Service;
+package carveo_portal.carveoManagement.service;
 
 import carveo_portal.carveoManagement.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Resident;
@@ -19,4 +19,6 @@ public interface VehicleService {
 
     // method to update vehicles by resident id
     public Vehicle updateVehicle(Long id, Vehicle vehicle);
+
+    public String deleteVehicle(Long id);
 }
