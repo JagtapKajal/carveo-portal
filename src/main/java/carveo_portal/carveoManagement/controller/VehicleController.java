@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5174", allowedHeaders = "*", methods = {RequestMethod.GET,
+        RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequestMapping("/vehicles")
 public class VehicleController {
 
@@ -42,5 +43,9 @@ public class VehicleController {
     return new ResponseEntity<>(updateVehicle,HttpStatus.OK);
     }
 
-
+    @DeleteMapping("/deleteVehicleById/{id}")
+    public ResponseEntity<String> deleteVehicleById(@PathVariable("id") Long id){
+        String deleteVehicle = vehicleService.deleteVehicle(id);
+        return new ResponseEntity<>(deleteVehicle, HttpStatus.OK);
+    }
 }
