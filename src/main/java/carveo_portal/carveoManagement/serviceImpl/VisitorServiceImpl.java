@@ -1,6 +1,6 @@
 package carveo_portal.carveoManagement.serviceImpl;
 
-import carveo_portal.carveoManagement.Service.VisitorService;
+import carveo_portal.carveoManagement.service.VisitorService;
 import carveo_portal.carveoManagement.VisitorDTO;
 import carveo_portal.carveoManagement.VisitorRequestDTO;
 import carveo_portal.carveoManagement.VisitorWithResidentDTO;
