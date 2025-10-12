@@ -32,5 +32,9 @@ public interface VisitorService {
     //to save visitor
     public Visitor saveOrUpdateVisitor(Visitor visitor);
 
+    // method to get all visitors
     public List<VisitorDTO> getAllVisitor();
+
+    //method to update visitors by id
+    public Visitor updateVisitor(int id, Visitor visitor);
 }
