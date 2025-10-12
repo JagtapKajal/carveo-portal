@@ -205,7 +205,16 @@ public class VisitorServiceImpl implements VisitorService {
 
     @Override
     public String deleteVisitors(int id) {
-        return "";
+        try{
+            Visitor visitor = visitorRepository.findById(id).orElseThrow(()->
+                    new RuntimeException("Visitor not found "));
+            visitorRepository.deleteById(id);
+            return "Visitor deleted successfully with id "+id;
+        }
+        catch (Exception e){
+            return "visitor not found with id " +id;
+        }
+
     }
 
 
