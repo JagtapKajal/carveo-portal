@@ -1,4 +1,4 @@
-package carveo_portal.carveoManagement.Service;
+package carveo_portal.carveoManagement.service;
 
 import carveo_portal.carveoManagement.VisitorDTO;
 import carveo_portal.carveoManagement.VisitorRequestDTO;

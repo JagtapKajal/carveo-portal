@@ -1,6 +1,6 @@
 package carveo_portal.carveoManagement.serviceImpl;
 
-import carveo_portal.carveoManagement.Service.ResidentService;
+import carveo_portal.carveoManagement.service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
 import carveo_portal.carveoManagement.enums.ResidentType;

@@ -1,6 +1,6 @@
 package carveo_portal.carveoManagement.controller;
 
-import carveo_portal.carveoManagement.Service.ResidentService;
+import carveo_portal.carveoManagement.service.ResidentService;
 import carveo_portal.carveoManagement.entity.Resident;
 
 import carveo_portal.carveoManagement.enums.ResidentType;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/residents")
 public class ResidentController {
 

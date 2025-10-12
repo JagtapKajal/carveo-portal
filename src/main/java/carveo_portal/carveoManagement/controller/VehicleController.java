@@ -1,6 +1,6 @@
 package carveo_portal.carveoManagement.controller;
 
-import carveo_portal.carveoManagement.Service.VehicleService;
+import carveo_portal.carveoManagement.service.VehicleService;
 import carveo_portal.carveoManagement.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Vehicle;
 import carveo_portal.carveoManagement.serviceImpl.VehicleServiceImpl;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 @RequestMapping("/vehicles")
 public class VehicleController {
 
@@ -41,4 +41,6 @@ public class VehicleController {
     Vehicle updateVehicle = vehicleService.updateVehicle(id, vehicle);
     return new ResponseEntity<>(updateVehicle,HttpStatus.OK);
     }
+
+
 }

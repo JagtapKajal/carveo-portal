@@ -1,6 +1,6 @@
 package carveo_portal.carveoManagement.serviceImpl;
 
-import carveo_portal.carveoManagement.Service.VehicleService;
+import carveo_portal.carveoManagement.service.VehicleService;
 import carveo_portal.carveoManagement.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
@@ -40,6 +40,7 @@ public class VehicleServiceImpl implements VehicleService {
 //        return vehicleRepository.findAll();
 //    }
 
+    // Method to get all vehicles
     @Override
     public List<VehicleDTO> getAllVehicle() {
 
@@ -63,16 +64,15 @@ public class VehicleServiceImpl implements VehicleService {
 
 
             }
-
             return dto;
         }).collect(Collectors.toList());
     }
 
+    // method to update vehicle
     @Override
     public Vehicle updateVehicle(Long id, Vehicle vehicle) {
         Vehicle v1 = vehicleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found with "+ id));
-
+                .orElseThrow(() -> new ResourceNotFoundException("Vehicle not found " + id));
 
         v1.setRegistrationnumber(vehicle.getRegistrationnumber());
         v1.setVname(vehicle.getVname());
@@ -82,15 +82,30 @@ public class VehicleServiceImpl implements VehicleService {
         v1.setOuttime(vehicle.getOuttime());
         v1.setIsvehicleactive(vehicle.isIsvehicleactive());
 
-
-        if (vehicle.getResident() != null) {
-            Resident r = residentRepository.findById(Math.toIntExact(vehicle.getResident().getId()))
+        if (vehicle.getId() != null) {
+            Resident r = residentRepository.findById(vehicle.getId().intValue())
                     .orElseThrow(() -> new ResourceNotFoundException("Resident not found"));
             v1.setResident(r);
         }
 
         return vehicleRepository.save(v1);
     }
+
+    // Delete vehicle by id
+    @Override
+    public String deleteVehicle(Long id) {
+        try{
+            Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(()
+                    -> new ResourceNotFoundException("Vehicle not found " + id));
+            vehicleRepository.deleteById(id);
+            return "Vehicle deleted successfully" + id;
+        }
+        catch (ResourceNotFoundException e){
+            return "Vehicle not found " + id;
+        }
+
+    }
+
 
 //    public Vehicle createVehicle(Vehicle vehicle) {
 //        if (vehicle.getRegistrationnumber() == null || vehicle.getRegistrationnumber().trim().isEmpty()) {
