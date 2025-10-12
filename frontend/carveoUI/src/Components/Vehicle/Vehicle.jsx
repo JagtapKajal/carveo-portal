@@ -32,7 +32,7 @@ const Vehicle = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this vehicle?")) {
-      fetch(`http://localhost:8080/vehicles/delete/${id}`, {
+      fetch(`http://localhost:8080/vehicles/deleteVehicleById/${id}`, {
         method: "DELETE",
       })
         .then((res) => {
@@ -52,7 +52,7 @@ const Vehicle = () => {
     });
     setShowUpdateForm(true);
   };
- 
+
   // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -137,9 +137,9 @@ const Vehicle = () => {
           {/* Vehicle Update Form Modal */}
           {showUpdateForm && selectedVehicle && (
             <VehicleUpdateForm
-              vehicle={selectedVehicle}
-              onClose={() => setShowUpdateForm(false)}
-              onUpdated={fetchVehicles}
+              vehicleData={selectedVehicle}
+              onCancel={() => setShowUpdateForm(false)}
+              onUpdate={fetchVehicles}
             />
           )}
         </>
