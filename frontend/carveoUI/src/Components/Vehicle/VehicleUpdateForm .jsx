@@ -3,6 +3,7 @@ import "./Vehicle.css";
 
 const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
   const [vehicle, setVehicle] = useState({
+    id: "",
     registrationnumber: "",
     vname: "",
     color: "",
@@ -13,23 +14,36 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
     resident: { id: "" },
   });
 
+  // ✅ Populate form with existing data when opened
   useEffect(() => {
-  if (vehicleData) {
-    console.log("Vehicle data received:", vehicleData);
-    setVehicle(vehicleData);
-  }
-}, [vehicleData]);
+    if (vehicleData) {
+      setVehicle({
+        id: vehicleData.id,
+        registrationnumber: vehicleData.registrationnumber || "",
+        vname: vehicleData.vname || "",
+        color: vehicleData.color || "",
+        type: vehicleData.type || "",
+        intime: vehicleData.intime ? vehicleData.intime.slice(0, 16) : "",
+        outtime: vehicleData.outtime ? vehicleData.outtime.slice(0, 16) : "",
+        isvehicleactive: vehicleData.isvehicleactive,
+        resident: { id: vehicleData.residentId || "" }, // ✅ nested object for backend
+      });
+    }
+  }, [vehicleData]);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setVehicle({ ...vehicle, [name]: value });
   };
 
   const handleResidentChange = (e) => {
-  setVehicle({ ...vehicle, resident: { id: Number(e.target.value) } });
-};
+    setVehicle({ ...vehicle, resident: { id: e.target.value } });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    console.log("🚀 Sending vehicle data:", vehicle); // Debug line
 
     fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
       method: "PUT",
@@ -38,11 +52,11 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
     })
       .then((res) => {
         if (res.ok) {
-          alert("Vehicle updated successfully!");
-         
+          alert("✅ Vehicle updated successfully!");
+          onUpdate(); // refresh table
           onCancel(); // close modal
         } else {
-          alert("Failed to update vehicle.");
+          alert("❌ Failed to update vehicle. Check backend logs.");
         }
       })
       .catch((err) => console.error("Error updating vehicle:", err));
@@ -81,6 +95,7 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
         <select name="type" value={vehicle.type} onChange={handleChange}>
           <option value="CAR">CAR</option>
           <option value="BIKE">BIKE</option>
+          <option value="MOPED">MOPED</option>
         </select>
 
         <label>In Time</label>
@@ -102,7 +117,7 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
         <label>Active Status</label>
         <select
           name="isvehicleactive"
-          value={vehicle.isvehicleactive ? "true" : "false"}
+          value={vehicle.isvehicleactive}
           onChange={(e) =>
             setVehicle({
               ...vehicle,
@@ -117,8 +132,8 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
         <label>Resident ID</label>
         <input
           type="number"
-          name="residentId"
-          value={vehicle.resident?.id || ""}
+          name="resident.id"
+          value={vehicle.resident.id || ""}
           onChange={handleResidentChange}
         />
 
