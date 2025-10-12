@@ -46,10 +46,13 @@ const Vehicle = () => {
   const [selectedVehicle, setSelectedVehicle] = useState(null);
 
   const handleUpdate = (vehicle) => {
-    setSelectedVehicle(vehicle);
+    setSelectedVehicle({
+      ...vehicle,
+      id: vehicle.id || vehicle.vehicleid,
+    });
     setShowUpdateForm(true);
   };
-
+ 
   // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
@@ -145,3 +148,5 @@ const Vehicle = () => {
   );
 };
 export default Vehicle;
+
+
