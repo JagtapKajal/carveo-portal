@@ -33,10 +33,10 @@ public class Vehicle {
     @Column(nullable = false)
     private VehicleType type; // CAR / MOPED / BIKE
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime intime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime outtime;
 
     @Column(nullable = false)
