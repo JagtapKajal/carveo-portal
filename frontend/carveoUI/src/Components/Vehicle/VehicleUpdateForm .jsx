@@ -14,37 +14,39 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
   });
 
   useEffect(() => {
-    if (vehicleData) setVehicle(vehicleData);
-  }, [vehicleData]);
-
+  if (vehicleData) {
+    console.log("Vehicle data received:", vehicleData);
+    setVehicle(vehicleData);
+  }
+}, [vehicleData]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setVehicle({ ...vehicle, [name]: value });
   };
 
   const handleResidentChange = (e) => {
-    setVehicle({ ...vehicle, resident: { id: e.target.value } });
-  };
-const handleSubmit = (e) => {
-  e.preventDefault();
-
-  fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(vehicle),
-  })
-    .then((res) => {
-      if (res.ok) {
-        alert("Vehicle updated successfully!");
-        onUpdate(); // refresh list
-        onClose(); // close modal
-      } else {
-        alert("Failed to update vehicle.");
-      }
-    })
-    .catch((err) => console.error("Error updating vehicle:", err));
+  setVehicle({ ...vehicle, resident: { id: Number(e.target.value) } });
 };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(vehicle),
+    })
+      .then((res) => {
+        if (res.ok) {
+          alert("Vehicle updated successfully!");
+         
+          onCancel(); // close modal
+        } else {
+          alert("Failed to update vehicle.");
+        }
+      })
+      .catch((err) => console.error("Error updating vehicle:", err));
+  };
 
   return (
     <div className="form-overlay">
@@ -100,7 +102,7 @@ const handleSubmit = (e) => {
         <label>Active Status</label>
         <select
           name="isvehicleactive"
-          value={vehicle.isvehicleactive}
+          value={vehicle.isvehicleactive ? "true" : "false"}
           onChange={(e) =>
             setVehicle({
               ...vehicle,
@@ -116,12 +118,12 @@ const handleSubmit = (e) => {
         <input
           type="number"
           name="residentId"
-          value={vehicle.resident.id}
+          value={vehicle.resident?.id || ""}
           onChange={handleResidentChange}
         />
 
         <div className="form-buttons">
-          <button type="submit" onClick={onUpdate}>Update</button>
+          <button type="submit">Update</button>
           <button type="button" onClick={onCancel}>
             Cancel
           </button>
