@@ -28,8 +28,10 @@
 
 .vehicle-table th,
 .vehicle-table td {
-  padding: 12px 15px;
+  padding: 12px ;
   text-align: center;
+      border: 1px solid #ddd;
+      font-size: 14px;
 }
 
 .vehicle-table th {
@@ -41,7 +43,7 @@
 }
 
 .vehicle-table tr:nth-child(even) {
-  background: #f9f9f9;
+      background-color: #eaeefe;
 }
 
 .vehicle-table tr:hover {

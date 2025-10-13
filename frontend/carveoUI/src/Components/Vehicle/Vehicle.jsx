@@ -6,7 +6,7 @@ const Vehicle = () => {
   const [vehicles, setVehicles] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 7;
+  const recordsPerPage = 5;
 
   // For update form modal
   const [showUpdateForm, setShowUpdateForm] = useState(false);
