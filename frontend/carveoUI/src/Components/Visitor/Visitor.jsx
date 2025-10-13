@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Visitor.css";
+import VisitorUpdateForm from "./VisitorUpdateForm";
 
 const Visitor = () => {
   const [visitors, setVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 7;
+  const recordsPerPage = 5;
+
+  // For update form modal
+  const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [selectedVisitor, setSelectedVisitor] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:8080/visitors/getAllVisitors") 
+    fetchVisitors();
+  }, []);
+
+  const fetchVisitors = () => {
+    setLoading(true);
+    fetch("http://localhost:8080/visitors/getAllVisitors")
       .then((res) => res.json())
       .then((data) => {
         setVisitors(data);
@@ -18,7 +28,30 @@ const Visitor = () => {
         console.error("Error fetching visitors:", err);
         setLoading(false);
       });
-  }, []);
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Are you sure you want to delete this visitor?")) {
+      fetch(`http://localhost:8080/visitors/deleteVisitor/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      })
+        .then((res) => {
+          if (res.ok) {
+            alert("Visitor deleted successfully!");
+            fetchVisitors(); 
+          } else {
+            alert("Failed to delete visitor");
+          }
+        })
+        .catch((err) => console.error("Error deleting visitor:", err));
+    }
+  };
+
+  const handleUpdate = (visitor) => {
+    setSelectedVisitor(visitor);
+    setShowUpdateForm(true);
+  };
 
   // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
@@ -46,7 +79,8 @@ const Visitor = () => {
                 <th>Phone</th>
                 <th>Status</th>
                 <th>Visitor Type</th>
-                <th>Resident Name</th> 
+                <th>Resident Name</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -57,12 +91,34 @@ const Visitor = () => {
                   <td>{visitor.vehiclename || "—"}</td>
                   <td>{visitor.vehicleRegistrationNumber || "—"}</td>
                   <td>{visitor.visitpurpose || "—"}</td>
-                  <td>{visitor.timein ? new Date(visitor.timein).toLocaleString() : "—"}</td>
-                  <td>{visitor.timeout ? new Date(visitor.timeout).toLocaleString() : "—"}</td>
+                  <td>
+                    {visitor.timein
+                      ? new Date(visitor.timein).toLocaleString()
+                      : "—"}
+                  </td>
+                  <td>
+                    {visitor.timeout
+                      ? new Date(visitor.timeout).toLocaleString()
+                      : "—"}
+                  </td>
                   <td>{visitor.phonenumber || "—"}</td>
                   <td>{visitor.isactivevisitor ? "Active" : "Inactive"}</td>
                   <td>{visitor.visitorType}</td>
-                  <td>{visitor.residentname || "—"}</td> 
+                  <td>{visitor.residentname || "—"}</td>
+                  <td>
+                    <button
+                      className="update-btn"
+                      onClick={() => handleUpdate(visitor)}
+                    >
+                      Update
+                    </button>
+                    <button
+                      className="delete-btn"
+                      onClick={() => handleDelete(visitor.id)}
+                    >
+                      Delete
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -80,6 +136,18 @@ const Visitor = () => {
               </button>
             ))}
           </div>
+
+          {/* Visitor Update Form Modal */}
+          {showUpdateForm && selectedVisitor && (
+            <VisitorUpdateForm
+              visitorData={selectedVisitor}
+              onUpdate={() => {
+                fetchVisitors();
+                setShowUpdateForm(false);
+              }}
+              onCancel={() => setShowUpdateForm(false)}
+            />
+          )}
         </>
       )}
     </div>
