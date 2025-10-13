@@ -105,15 +105,15 @@ const Visitor = () => {
                   <td>{visitor.isactivevisitor ? "Active" : "Inactive"}</td>
                   <td>{visitor.visitorType}</td>
                   <td>{visitor.residentname || "—"}</td>
-                  <td>
+                  <td className="button">
                     <button
-                      className="update-btn"
+                      className="visitor-update-btn"
                       onClick={() => handleUpdate(visitor)}
                     >
                       Update
                     </button>
                     <button
-                      className="delete-btn"
+                      className="visitor-delete-btn"
                       onClick={() => handleDelete(visitor.id)}
                     >
                       Delete
@@ -141,7 +141,7 @@ const Visitor = () => {
           {showUpdateForm && selectedVisitor && (
             <VisitorUpdateForm
               visitorData={selectedVisitor}
-              onUpdate={() => {
+              onUpdated={() => {
                 fetchVisitors();
                 setShowUpdateForm(false);
               }}
