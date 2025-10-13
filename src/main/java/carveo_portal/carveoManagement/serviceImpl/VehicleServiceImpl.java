@@ -98,7 +98,7 @@ public class VehicleServiceImpl implements VehicleService {
             Vehicle vehicle = vehicleRepository.findById(id).orElseThrow(()
                     -> new ResourceNotFoundException("Vehicle not found " + id));
             vehicleRepository.deleteById(id);
-            return "Vehicle deleted successfully" + id;
+            return "Vehicle deleted successfully with id " + id;
         }
         catch (ResourceNotFoundException e){
             return "Vehicle not found " + id;
