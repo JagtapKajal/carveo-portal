@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/residents")
 public class ResidentController {
 
@@ -21,7 +21,7 @@ public class ResidentController {
    private ResidentService residentService;
 
     // API to save Resident
-    @PostMapping("/saveResident")
+    @PostMapping("/addResident")
     public ResponseEntity<?> addResident(@Valid @RequestBody Resident resident) {
         residentService.saveResident(resident);
         return new ResponseEntity<>("Data Saved", HttpStatus.CREATED);
@@ -128,5 +128,7 @@ public class ResidentController {
         Resident resident2 = residentService.UpdateResidentById(id, resident);
         return new ResponseEntity<>(resident2, HttpStatus.OK);
     }
+
+
 }
 
