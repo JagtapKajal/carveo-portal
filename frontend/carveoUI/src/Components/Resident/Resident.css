@@ -13,6 +13,7 @@
   text-align: center;
   color: #2a5298;
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .resident-table {
@@ -186,7 +187,7 @@
   padding: 0.4rem 0.8rem;
   border-radius: 10px;
   cursor: pointer;
-  border: 1px solid #242323;
+  border: 2px solid #0573cd;
 }
 
 .update-btn:hover {
@@ -198,7 +199,7 @@
   padding: 0.4rem 0.8rem;
   border-radius: 10px;
   cursor: pointer;
- border: 1px solid #242323;
+ border: 2px solid #d51507;
 }
 
 .delete-btn:hover {

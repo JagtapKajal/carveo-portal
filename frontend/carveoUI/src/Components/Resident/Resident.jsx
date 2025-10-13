@@ -8,7 +8,7 @@ const Resident = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedResident, setSelectedResident] = useState(null); // For editing
-  const recordsPerPage = 7;
+  const recordsPerPage = 5;
 
   const fetchResidents = () => {
     fetch("http://localhost:8080/residents/getAllResident")
