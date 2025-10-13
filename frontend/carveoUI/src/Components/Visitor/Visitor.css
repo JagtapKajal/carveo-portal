@@ -77,3 +77,38 @@
   background: #1abc9c;
   font-weight: bold;
 }
+
+.button td {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.visitor-update-btn {
+  background-color: #2196f3;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid #0573cd;
+  width: 70px;
+  margin-bottom: 5px;
+}
+
+.visitor-delete-btn {
+  background-color: #f44336;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  border: 2px solid #d51507;
+  width: 70px;
+}
+
+.visitor-update-btn:hover {
+  background-color: #2379db;
+}
+
+.visitor-delete-btn:hover {
+  background-color: #d32f2f;
+}
