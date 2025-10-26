@@ -116,8 +116,7 @@ const Resident = () => {
               <button
                 key={index + 1}
                 className={currentPage === index + 1 ? "active" : ""}
-                onClick={() => setCurrentPage(index + 1)}
-              >
+                onClick={() => setCurrentPage(index + 1)}>
                 {index + 1}
               </button>
             ))}
@@ -129,8 +128,7 @@ const Resident = () => {
       {selectedResident && (
         <ResidentUpdateForm
           resident={selectedResident}
-          onClose={handleFormClose}
-        />
+          onClose={handleFormClose}/>
       )}
     </div>
   );
