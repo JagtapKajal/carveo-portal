@@ -3,7 +3,7 @@
   margin: 0;
   padding: 0;
  width: 100%;
-  text-align: left;   /* avoid centering everything */
+  text-align: center;   /* avoid centering everything */
 }
 
 /* Optional: make App fill full screen */
