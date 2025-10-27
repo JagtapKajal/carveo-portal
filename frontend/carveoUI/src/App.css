@@ -15,3 +15,14 @@
 body{
   display: none;
 }
+.app-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 30px;
+  width: calc(100% - 240px);
+  background-color: #f4f6f9;
+  min-height: 100vh;
+}
