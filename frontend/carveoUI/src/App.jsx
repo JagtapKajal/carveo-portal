@@ -5,6 +5,7 @@ import Dashboard from "./Components/dashboard/Dashboard";
 import Resident from "./Components/Resident/Resident";
 import Vehicle from "./Components/Vehicle/Vehicle";
 import Visitor from "./Components/Visitor/Visitor";
+import Sidebar from './sidebar/Sidebar';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            <Route path="/sidebar" element={<Sidebar />} />
             <Route path="/resident" element={<Resident />} />
             <Route path="/vehicle" element={<Vehicle />} />
             <Route path="/visitor" element={<Visitor />} />
