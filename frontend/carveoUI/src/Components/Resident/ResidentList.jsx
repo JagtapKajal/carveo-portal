@@ -9,6 +9,7 @@ const ResidentList = () => {
   const [filteredResidents, setFilteredResidents] = useState([]);
   const navigate = useNavigate();
 
+  // Fetch all residents from backend
   useEffect(() => {
     fetchResidents();
   }, []);
@@ -24,12 +25,20 @@ const ResidentList = () => {
     }
   };
 
+  // Handle Search with Validation
   const handleSearch = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.trim();
     setSearch(value);
+
+    if (!value) {
+      setFilteredResidents(residents);
+      return;
+    }
+
     const filtered = residents.filter((r) =>
       (r.fname + " " + r.lname).toLowerCase().includes(value.toLowerCase())
     );
+
     setFilteredResidents(filtered);
   };
 
@@ -52,7 +61,8 @@ const ResidentList = () => {
             <tr>
               <th>First Name</th>
               <th>Last Name</th>
-              <th>Flat Number</th>
+              <th>Flat No</th>
+              <th>Contact</th>
             </tr>
           </thead>
           <tbody>
@@ -61,12 +71,13 @@ const ResidentList = () => {
                 <td>{r.fname}</td>
                 <td>{r.lname}</td>
                 <td>{r.flatNo || "N/A"}</td>
+                <td>{r.contact || "N/A"}</td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>No residents found.</p>
+        <p className="no-result">No residents found for “{search}”.</p>
       )}
     </div>
   );
