@@ -9,7 +9,6 @@ const ResidentList = () => {
   const [filteredResidents, setFilteredResidents] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch all residents from backend
   useEffect(() => {
     fetchResidents();
   }, []);
@@ -25,7 +24,6 @@ const ResidentList = () => {
     }
   };
 
-  // Handle Search with Validation
   const handleSearch = (e) => {
     const value = e.target.value.trim();
     setSearch(value);
