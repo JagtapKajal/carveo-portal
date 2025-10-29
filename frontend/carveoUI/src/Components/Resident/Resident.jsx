@@ -81,7 +81,7 @@ const Resident = () => {
       {/* ✅ Search Bar */}
       <input
         type="text"
-        placeholder="Search by name, flat, mobile, or email..."
+        placeholder="Search Here..."
         value={searchTerm}
         onChange={(e) => {
           setSearchTerm(e.target.value);
