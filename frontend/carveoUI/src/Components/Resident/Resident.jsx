@@ -1,6 +1,7 @@
 // ResidentPage.jsx
 import React, { useEffect, useState } from "react";
-import ResidentUpdateForm from "./ResidentUpdateForm"; // import form
+import ResidentUpdateForm from "./ResidentUpdateForm"; 
+import AddResident from "./AddResident";
 import "./Resident.css";
 
 const Resident = () => {
@@ -9,6 +10,7 @@ const Resident = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedResident, setSelectedResident] = useState(null); // For editing
   const [searchTerm, setSearchTerm] = useState(""); // ✅ for search input
+  const [showAddForm, setShowAddForm] = useState(false);
   const recordsPerPage = 5;
 
   const fetchResidents = () => {
@@ -48,6 +50,15 @@ const Resident = () => {
   );
   const totalPages = Math.ceil(filteredResidents.length / recordsPerPage);
 
+  const handleAddClick = () => {
+    setShowAddForm(true);
+  };
+
+  // ✅ handle form close for Add
+  const handleAddClose = () => {
+    setShowAddForm(false);
+    fetchResidents(); // refresh list after adding
+  };
   const handleUpdateClick = (resident) => {
     setSelectedResident(resident);
   };
@@ -167,6 +178,9 @@ const Resident = () => {
         </>
       )}
 
+      {/* ✅ Open Add Form */}
+      {showAddForm && <AddResident onClose={handleAddClose} />}
+      
       {/* Update Form */}
       {selectedResident && (
         <ResidentUpdateForm

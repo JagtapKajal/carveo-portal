@@ -24,8 +24,8 @@ const ResidentUpdateForm = ({ resident, onClose }) => {
       .then((res) => {
         if (res.ok) {
           alert("Resident updated successfully");
-          onClose();
-        } else {
+          onClose(); 
+        } else {  
           alert("Update failed");
         }
       })
