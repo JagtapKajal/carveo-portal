@@ -135,6 +135,10 @@ const Resident = () => {
                       >
                         Delete
                       </button>
+                      <button className= "add-btn" 
+                      onClick= {() => handleAddClick(resident)}>
+                        Add
+                      </button>
                     </td>
                   </tr>
                 ))
