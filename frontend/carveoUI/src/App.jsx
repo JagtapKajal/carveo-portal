@@ -6,7 +6,6 @@ import Resident from "./Components/Resident/Resident";
 import Vehicle from "./Components/Vehicle/Vehicle";
 import Visitor from "./Components/Visitor/Visitor";
 import Sidebar from './sidebar/Sidebar';
-import ResidentList from "./Components/Resident/ResidentList";
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
             <Route path="/resident" element={<Resident />} />
             <Route path="/vehicle" element={<Vehicle />} />
             <Route path="/visitor" element={<Visitor />} />
-            <Route path="/residentlist" element={<ResidentList />} />
+          
           </Routes>
         </div>
       </div>
