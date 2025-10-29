@@ -8,6 +8,7 @@ const Resident = () => {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedResident, setSelectedResident] = useState(null); // For editing
+  const [searchTerm, setSearchTerm] = useState(""); // ✅ for search input
   const recordsPerPage = 5;
 
   const fetchResidents = () => {
@@ -23,12 +24,34 @@ const Resident = () => {
     fetchResidents();
   }, []);
 
-  // Handle update
+  // ✅ Filter logic for search
+  const filteredResidents = residents.filter((r) =>
+    (r.fname +
+      " " +
+      r.lname +
+      " " +
+      r.flatno +
+      " " +
+      r.mobileno +
+      " " +
+      r.email)
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase())
+  );
+
+  // Pagination logic (applied after filtering)
+  const indexOfLastRecord = currentPage * recordsPerPage;
+  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
+  const currentRecords = filteredResidents.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+  const totalPages = Math.ceil(filteredResidents.length / recordsPerPage);
+
   const handleUpdateClick = (resident) => {
     setSelectedResident(resident);
   };
 
-  // Handle delete
   const handleDeleteClick = (id) => {
     if (window.confirm("Are you sure you want to delete this resident?")) {
       fetch(`http://localhost:8080/residents/DeleteResident/${id}`, {
@@ -37,7 +60,7 @@ const Resident = () => {
         .then((res) => {
           if (res.ok) {
             alert("Resident deleted successfully");
-            fetchResidents(); // refresh data
+            fetchResidents();
           } else {
             alert("Delete failed");
           }
@@ -51,15 +74,22 @@ const Resident = () => {
     fetchResidents(); // reload after update
   };
 
-  // Pagination logic
-  const indexOfLastRecord = currentPage * recordsPerPage;
-  const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = residents.slice(indexOfFirstRecord, indexOfLastRecord);
-  const totalPages = Math.ceil(residents.length / recordsPerPage);
-
   return (
     <div className="resident-page">
       <h2>Resident Details</h2>
+
+      {/* ✅ Search Bar */}
+      <input
+        type="text"
+        placeholder="Search by name, flat, mobile, or email..."
+        value={searchTerm}
+        onChange={(e) => {
+          setSearchTerm(e.target.value);
+          setCurrentPage(1); // reset to page 1 on search
+        }}
+        className="search-input"
+      />
+
       {loading ? (
         <p>Loading...</p>
       ) : (
@@ -76,37 +106,45 @@ const Resident = () => {
                 <th>Type</th>
                 <th>No of Vehicles</th>
                 <th>Parking Slot</th>
-                <th>Actions</th> {/* Update + Delete */}
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {currentRecords.map((resident) => (
-                <tr key={resident.id}>
-                  <td>{resident.id}</td>
-                  <td>{resident.fname}</td>
-                  <td>{resident.lname}</td>
-                  <td>{resident.flatno}</td>
-                  <td>{resident.mobileno}</td>
-                  <td>{resident.email}</td>
-                  <td>{resident.residenttype}</td>
-                  <td>{resident.noofvehicles}</td>
-                  <td>{resident.parkingslot}</td>
-                  <td>
-                    <button
-                      className="update-btn"
-                      onClick={() => handleUpdateClick(resident)}
-                    >
-                      Update
-                    </button>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDeleteClick(resident.id)}
-                    >
-                      Delete
-                    </button>
+              {currentRecords.length > 0 ? (
+                currentRecords.map((resident) => (
+                  <tr key={resident.id}>
+                    <td>{resident.id}</td>
+                    <td>{resident.fname}</td>
+                    <td>{resident.lname}</td>
+                    <td>{resident.flatno}</td>
+                    <td>{resident.mobileno}</td>
+                    <td>{resident.email}</td>
+                    <td>{resident.residenttype}</td>
+                    <td>{resident.noofvehicles}</td>
+                    <td>{resident.parkingslot}</td>
+                    <td>
+                      <button
+                        className="update-btn"
+                        onClick={() => handleUpdateClick(resident)}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDeleteClick(resident.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="10" style={{ textAlign: "center" }}>
+                    No residents found.
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
 
@@ -116,7 +154,8 @@ const Resident = () => {
               <button
                 key={index + 1}
                 className={currentPage === index + 1 ? "active" : ""}
-                onClick={() => setCurrentPage(index + 1)}>
+                onClick={() => setCurrentPage(index + 1)}
+              >
                 {index + 1}
               </button>
             ))}
@@ -124,11 +163,12 @@ const Resident = () => {
         </>
       )}
 
-      {/* Open update form if a resident is selected */}
+      {/* Update Form */}
       {selectedResident && (
         <ResidentUpdateForm
           resident={selectedResident}
-          onClose={handleFormClose}/>
+          onClose={handleFormClose}
+        />
       )}
     </div>
   );
