@@ -66,6 +66,11 @@ const Visitor = () => {
         <p>Loading...</p>
       ) : (
         <>
+        <div className="table-header">
+        <button className="visitor-add-btn" onClick={() => navigate("/add-visitor")}>
+          Add Visitor
+        </button>
+      </div>
           <table className="visitor-table">
             <thead>
               <tr>
