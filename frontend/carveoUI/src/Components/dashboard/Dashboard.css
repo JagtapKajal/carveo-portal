@@ -17,6 +17,17 @@ h1 {
   flex-wrap: wrap;
   gap: 60px;
 }
+.search-input {
+  width: 15%;
+  padding: 10px;
+  margin: 15px 0;
+  margin-right: 80%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #204c98;
+  color: white;
+}
 
 .card {
   background: linear-gradient(135deg, #2a5298, #1e3c72);
