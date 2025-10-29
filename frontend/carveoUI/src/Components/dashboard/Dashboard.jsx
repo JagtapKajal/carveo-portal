@@ -40,17 +40,17 @@ const Dashboard = () => {
       <h1>Carveo Management Dashboard</h1>
 
       <div className="dashboard-cards">
-        <div className="card" onClick={() => navigate("/residentlist")}>
+        <div className="card" onClick={() => navigate("/resident")}>
           <h3>Total Residents</h3>
           <p>{counts.residents}</p>
         </div>
 
-        <div className="card" onClick={() => alert("Vehicles Page Coming Soon!")}>
+        <div className="card" onClick={() => navigate("/vehicle")}>
           <h3>Total Vehicles</h3>
           <p>{counts.vehicles}</p>
         </div>
 
-        <div className="card" onClick={() => alert("Visitors Page Coming Soon!")}>
+        <div className="card" onClick={() => navigate("/Visitor")}>
           <h3>Total Visitors</h3>
           <p>{counts.visitors}</p>
         </div>
