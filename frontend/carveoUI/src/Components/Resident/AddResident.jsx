@@ -21,7 +21,7 @@ const AddResident = ({onClose}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/residents/AddResident", {
+    fetch("http://localhost:8080/residents/addResident", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const AddResident = ({onClose}) => {
       .then((res) => {
         if (res.ok) {
           alert("Resident added successfully!");
-          onClose();
+          if (onClose) onClose();
         } else {
           alert("Failed to add resident.");
         }
