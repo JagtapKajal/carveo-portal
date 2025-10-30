@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./Visitor.css";
 import VisitorUpdateForm from "./VisitorUpdateForm";
+import { useNavigate } from "react-router-dom";
+
+import AddVisitor from "./AddVisitor";
 
 const Visitor = () => {
   const [visitors, setVisitors] = useState([]);
@@ -11,6 +14,7 @@ const Visitor = () => {
   // For update form modal
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selectedVisitor, setSelectedVisitor] = useState(null);
+const navigate = useNavigate();
 
   useEffect(() => {
     fetchVisitors();
@@ -67,7 +71,7 @@ const Visitor = () => {
       ) : (
         <>
         <div className="table-header">
-        <button className="visitor-add-btn" onClick={() => navigate("/add-visitor")}>
+        <button className="visitor-add-btn" onClick={() => navigate("/AddVisitor")}>
           Add Visitor
         </button>
       </div>
@@ -123,6 +127,7 @@ const Visitor = () => {
                     >
                       Delete
                     </button>
+                    
                   </td>
                 </tr>
               ))}
