@@ -177,6 +177,8 @@
   font-size: 15px;
   outline: none;
   transition: all 0.3s ease;
+  color: #333;
+  background-color: #f4f4f9;
 }
 
 .visitor-form .form-group input:focus,
@@ -205,7 +207,7 @@
 }
 
 .submit-btn {
-  background-color: #6397f0;
+  background-color: #646cff;
   color: white;
   font-weight: 500;
 }
