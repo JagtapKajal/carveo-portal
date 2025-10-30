@@ -131,7 +131,7 @@
   border-radius: 16px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
   color: #333;
-  
+   overflow-y: auto;
 }
 
 .visitor-form-container h2 {
@@ -192,8 +192,8 @@
   margin-top: 25px;
 }
 
-.submit-btn,
-.cancel-btn {
+.visitor-submit-btn,
+.visitor-cancel-btn {
   width: 120px;
   padding: 10px;
   font-size: 16px;
@@ -205,13 +205,13 @@
 }
 
 .submit-btn {
-  background-color: #4f46e5;
+  background-color: #6397f0;
   color: white;
   font-weight: 500;
 }
 
 .submit-btn:hover {
-  background-color: #4338ca;
+  background-color: #439de2;
 }
 
 .cancel-btn {
