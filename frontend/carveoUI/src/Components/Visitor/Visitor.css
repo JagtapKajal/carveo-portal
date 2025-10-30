@@ -204,9 +204,10 @@
   cursor: pointer;
   margin: 10px;
   transition: all 0.3s ease;
+
 }
 
-.submit-btn {
+.visitor-submit-btn {
   background-color: #646cff;
   color: white;
   font-weight: 500;
