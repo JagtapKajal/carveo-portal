@@ -67,7 +67,6 @@ const navigate = useNavigate();
     <div className="visitor-page">
       <h2 className="visitor-title">Visitor Details</h2>
       <div class="visitor-header">
-  <button class="add-visitor-btn">Add Visitor</button>
   <input type="text" class="search-bar" placeholder="Search visitor..." />
 </div>
 
