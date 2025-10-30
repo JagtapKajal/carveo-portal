@@ -151,10 +151,10 @@ const AddVisitor = () => {
           />
         </div>
 
-        <button type="submit" className="submit-btn">Add Visitor</button>
+        <button type="submit" className="visitor-submit-btn">Add Visitor</button>
         <button
           type="button"
-          className="cancel-btn"
+          className="visitor-cancel-btn"
           onClick={() => navigate("/visitor")}
         >
           Cancel
