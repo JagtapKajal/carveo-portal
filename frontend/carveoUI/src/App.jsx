@@ -7,7 +7,7 @@ import Vehicle from "./Components/Vehicle/Vehicle";
 import Visitor from "./Components/Visitor/Visitor";
 import Sidebar from './sidebar/Sidebar';
 import AddResident from "./Components/Resident/AddResident";
-
+import AddVisitor from "./Components/Visitor/AddVisitor";
 function App() {
   return (
     <Router>
@@ -21,7 +21,7 @@ function App() {
             <Route path="/vehicle" element={<Vehicle />} />
             <Route path="/visitor" element={<Visitor />} />
             <Route path="/resident-add" element={<AddResident/>}/>
-            <Route path="/add-visitor" element={<AddVisitor />} />
+            <Route path="/AddVisitor" element={<AddVisitor/>} />
           </Routes>
         </div>
       </div>
