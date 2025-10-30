@@ -33,6 +33,7 @@ body {
   height: 100%;
   background-color: #fff;
   overflow-x: hidden;
+   scrollbar-width: none;
   color: black;
   /* prevent horizontal scrollbar */
 }
