@@ -67,7 +67,7 @@ const navigate = useNavigate();
     <div className="visitor-page">
       <h2 className="visitor-title">Visitor Details</h2>
       <div class="visitor-header">
-  <input type="text" class="search-bar" placeholder="Search visitor..." />
+  <input type="text" class="search-bar" placeholder="Search visitor Here" />
 </div>
 
       {loading ? (
