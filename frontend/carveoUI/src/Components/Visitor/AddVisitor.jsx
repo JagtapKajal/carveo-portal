@@ -151,7 +151,7 @@ const AddVisitor = () => {
           />
         </div>
 
-        <button type="submit" className="visitor-submit-btn">Add Visitor</button>
+        <button type="submit" className="visitor-submit-btn">Add</button>
         <button
           type="button"
           className="visitor-cancel-btn"
