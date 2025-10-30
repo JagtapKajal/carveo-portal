@@ -134,7 +134,6 @@ const navigate = useNavigate();
             </tbody>
           </table>
 
-          {/* Pagination */}
           <div className="pagination">
             {Array.from({ length: totalPages }, (_, index) => (
               <button

@@ -120,3 +120,113 @@
   margin-left: 1300px;
   margin-bottom: 10px;
 }
+/* ---------------- AddVisitor Form Styling ---------------- */
+
+.visitor-form-container {
+  background-color: #fff;
+  max-width: 900px;
+  margin: 80px auto;
+  margin-top: 40px;
+  padding: 40px 50px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  color: #333;
+  
+}
+
+.visitor-form-container h2 {
+  margin-bottom: 25px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+}
+
+/* ✅ Two-column layout */
+.visitor-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 30px;
+  row-gap: 18px;
+  justify-content: center;
+   scrollbar-width: none;
+ 
+}
+
+.visitor-form .form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  height: 52px;
+  
+}
+
+.visitor-form .form-group label {
+  margin-bottom: 6px;
+  font-weight: 500;
+  font-size: 16px;
+  color: #555;
+}
+
+.visitor-form .form-group input,
+.visitor-form .form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.visitor-form .form-group input:focus,
+.visitor-form .form-group select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 4px rgba(59, 130, 246, 0.4);
+}
+
+/* ✅ Center buttons below both columns */
+.visitor-form-buttons {
+  grid-column: span 2;
+  text-align: center;
+  margin-top: 25px;
+}
+
+.submit-btn,
+.cancel-btn {
+  width: 120px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+  transition: all 0.3s ease;
+}
+
+.submit-btn {
+  background-color: #4f46e5;
+  color: white;
+  font-weight: 500;
+}
+
+.submit-btn:hover {
+  background-color: #4338ca;
+}
+
+.cancel-btn {
+  background-color: #d1d5db;
+  color: #111;
+  font-weight: 500;
+}
+
+.cancel-btn:hover {
+  background-color: #9ca3af;
+}
+
+/* ✅ Responsive layout for mobile */
+@media (max-width: 768px) {
+  .visitor-form {
+    grid-template-columns: 1fr;
+  }
+}
