@@ -48,4 +48,76 @@ public class VisitorRequestDTO {
     public void setResidentId(int residentId) {
         this.residentId = residentId;
     }
+
+    public String getVisitorname() {
+        return visitorname;
+    }
+
+    public void setVisitorname(String visitorname) {
+        this.visitorname = visitorname;
+    }
+
+    public String getVehiclename() {
+        return vehiclename;
+    }
+
+    public void setVehiclename(String vehiclename) {
+        this.vehiclename = vehiclename;
+    }
+
+    public String getVehicleRegistrationNumber() {
+        return vehicleRegistrationNumber;
+    }
+
+    public void setVehicleRegistrationNumber(String vehicleRegistrationNumber) {
+        this.vehicleRegistrationNumber = vehicleRegistrationNumber;
+    }
+
+    public String getVisitpurpose() {
+        return visitpurpose;
+    }
+
+    public void setVisitpurpose(String visitpurpose) {
+        this.visitpurpose = visitpurpose;
+    }
+
+    public LocalDateTime getTimein() {
+        return timein;
+    }
+
+    public void setTimein(LocalDateTime timein) {
+        this.timein = timein;
+    }
+
+    public LocalDateTime getTimeout() {
+        return timeout;
+    }
+
+    public void setTimeout(LocalDateTime timeout) {
+        this.timeout = timeout;
+    }
+
+    public boolean isActiveVisitor() {
+        return isActiveVisitor;
+    }
+
+    public void setActiveVisitor(boolean activeVisitor) {
+        isActiveVisitor = activeVisitor;
+    }
+
+    public Long getPhonenumber() {
+        return phonenumber;
+    }
+
+    public void setPhonenumber(Long phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public VisitorType getVisitorType() {
+        return visitorType;
+    }
+
+    public void setVisitorType(VisitorType visitorType) {
+        this.visitorType = visitorType;
+    }
 }
