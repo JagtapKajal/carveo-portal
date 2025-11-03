@@ -27,7 +27,7 @@ const VisitorUpdateForm = ({ visitorData, onUpdated, onCancel }) => {
     e.preventDefault();
     try {
       const res = await fetch(
-        `http://localhost:8080/visitors/UpdateVisitorById/${visitorData.id}`,
+        `https://carveo-portal.onrender.com/visitors/UpdateVisitorById/${visitorData.id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },

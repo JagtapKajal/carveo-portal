@@ -3,18 +3,16 @@ import "./Visitor.css";
 import VisitorUpdateForm from "./VisitorUpdateForm";
 import { useNavigate } from "react-router-dom";
 
-import AddVisitor from "./AddVisitor";
-
 const Visitor = () => {
   const [visitors, setVisitors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchTerm, setSearchTerm] = useState(""); // ✅ Added search state
   const recordsPerPage = 5;
 
-  // For update form modal
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [selectedVisitor, setSelectedVisitor] = useState(null);
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchVisitors();
@@ -22,7 +20,7 @@ const navigate = useNavigate();
 
   const fetchVisitors = () => {
     setLoading(true);
-    fetch("http://localhost:8080/visitors/getAllVisitors")
+    fetch("https://carveo-portal.onrender.com/visitors/getAllVisitors")
       .then((res) => res.json())
       .then((data) => {
         setVisitors(data);
@@ -36,14 +34,14 @@ const navigate = useNavigate();
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this visitor?")) {
-      fetch(`http://localhost:8080/visitors/deleteVisitor/${id}`, {
+      fetch(`https://carveo-portal.onrender.com/visitors/deleteVisitor/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })
         .then((res) => {
           if (res.ok) {
             alert("Visitor deleted successfully!");
-            fetchVisitors(); 
+            fetchVisitors();
           } else {
             alert("Failed to delete visitor");
           }
@@ -57,28 +55,49 @@ const navigate = useNavigate();
     setShowUpdateForm(true);
   };
 
+  // ✅ Filter visitors based on search term
+  const filteredVisitors = visitors.filter((v) =>
+    v.visitorname.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Pagination logic
   const indexOfLastRecord = currentPage * recordsPerPage;
   const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
-  const currentRecords = visitors.slice(indexOfFirstRecord, indexOfLastRecord);
-  const totalPages = Math.ceil(visitors.length / recordsPerPage);
+  const currentRecords = filteredVisitors.slice(
+    indexOfFirstRecord,
+    indexOfLastRecord
+  );
+  const totalPages = Math.ceil(filteredVisitors.length / recordsPerPage);
 
   return (
     <div className="visitor-page">
       <h2 className="visitor-title">Visitor Details</h2>
-      <div class="visitor-header">
-  <input type="text" class="search-bar" placeholder="Search visitor Here" />
-</div>
+
+      {/* ✅ Search bar (left) + Add button (right) */}
+      <div className="table-header">
+        <input
+          type="text"
+          placeholder="Search Visitor Here..."
+          value={searchTerm}
+          onChange={(e) => {
+            setSearchTerm(e.target.value);
+            setCurrentPage(1);
+          }}
+          className="search-input"
+        />
+
+        <button
+          className="visitor-add-btn"
+          onClick={() => navigate("/AddVisitor")}
+        >
+          Add Visitor
+        </button>
+      </div>
 
       {loading ? (
         <p>Loading...</p>
       ) : (
         <>
-        <div className="table-header">
-        <button className="visitor-add-btn" onClick={() => navigate("/AddVisitor")}>
-          Add Visitor
-        </button>
-      </div>
           <table className="visitor-table">
             <thead>
               <tr>
@@ -131,7 +150,6 @@ const navigate = useNavigate();
                     >
                       Delete
                     </button>
-                    
                   </td>
                 </tr>
               ))}
@@ -150,7 +168,6 @@ const navigate = useNavigate();
             ))}
           </div>
 
-          {/* Visitor Update Form Modal */}
           {showUpdateForm && selectedVisitor && (
             <VisitorUpdateForm
               visitorData={selectedVisitor}
