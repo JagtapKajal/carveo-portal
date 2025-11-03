@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "https://carveo-portaluii.vercel.app/")
 @RequestMapping("/visitors")
 public class VisitorController {
 
