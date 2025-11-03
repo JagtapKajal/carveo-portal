@@ -21,7 +21,7 @@ const AddResident = ({onClose}) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8080/residents/addResident", {
+    fetch("https://carveo-portal.onrender.com/residents/addResident", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -45,7 +45,7 @@ const VehicleUpdateForm = ({ vehicleData, onUpdate, onCancel }) => {
 
     console.log("🚀 Sending vehicle data:", vehicle); // Debug line
 
-    fetch(`http://localhost:8080/vehicles/UpdateVehicleById/${vehicle.id}`, {
+    fetch(`https://carveo-portal.onrender.com/vehicles/UpdateVehicleById/${vehicle.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(vehicle),
