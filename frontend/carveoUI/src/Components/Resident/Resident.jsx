@@ -14,7 +14,7 @@ const Resident = () => {
   const recordsPerPage = 5;
 
   const fetchResidents = () => {
-    fetch("https://carveo-portal.onrender.com/residents/getAllResident")
+    fetch("http://localhost:8080/residents/getAllResident")
       .then((res) => res.json())
       .then((data) => {
         setResidents(data);
@@ -65,7 +65,7 @@ const Resident = () => {
 
   const handleDeleteClick = (id) => {
     if (window.confirm("Are you sure you want to delete this resident?")) {
-      fetch(`https://carveo-portal.onrender.com/residents/DeleteResident/${id}`, {
+      fetch(`http://localhost:8080/residents/DeleteResident/${id}`, {
         method: "DELETE",
       })
         .then((res) => {

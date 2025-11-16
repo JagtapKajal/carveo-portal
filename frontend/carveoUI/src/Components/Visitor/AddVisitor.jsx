@@ -27,7 +27,7 @@ const AddVisitor = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://carveo-portal.onrender.com/visitors/addVisitor", {
+      const response = await fetch("http://localhost:8080/visitors/addVisitor", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(visitor),

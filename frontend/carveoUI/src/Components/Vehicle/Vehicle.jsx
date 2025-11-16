@@ -18,7 +18,7 @@ const Vehicle = () => {
 
   const fetchVehicles = () => {
     setLoading(true);
-    fetch("https://carveo-portal.onrender.com/vehicles/getAllVehicles")
+    fetch("http://localhost:8080/vehicles/getAllVehicles")
       .then((res) => res.json())
       .then((data) => {
         setVehicles(data);
@@ -32,7 +32,7 @@ const Vehicle = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this vehicle?")) {
-      fetch(`https://carveo-portal.onrender.com/vehicles/deleteVehicleById/${id}`, {
+      fetch(`http://localhost:8080/vehicles/deleteVehicleById/${id}`, {
         method: "DELETE",
       })
         .then((res) => {

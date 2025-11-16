@@ -20,7 +20,7 @@ const Visitor = () => {
 
   const fetchVisitors = () => {
     setLoading(true);
-    fetch("https://carveo-portal.onrender.com/visitors/getAllVisitors")
+    fetch("http://localhost:8080/visitors/getAllVisitors")
       .then((res) => res.json())
       .then((data) => {
         setVisitors(data);
@@ -34,7 +34,7 @@ const Visitor = () => {
 
   const handleDelete = (id) => {
     if (window.confirm("Are you sure you want to delete this visitor?")) {
-      fetch(`https://carveo-portal.onrender.com/visitors/deleteVisitor/${id}`, {
+      fetch(`http://localhost:8080/visitors/deleteVisitor/${id}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       })

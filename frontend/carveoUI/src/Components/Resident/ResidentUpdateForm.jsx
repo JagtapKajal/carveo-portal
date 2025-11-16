@@ -14,7 +14,7 @@ const ResidentUpdateForm = ({ resident, onClose }) => {
     e.preventDefault();
 
     // backend url to update resident
-    fetch(`https://carveo-portal.onrender.com/residents/UpdateResident/${resident.id}`, {
+    fetch(`http://localhost:8080/residents/UpdateResident/${resident.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
