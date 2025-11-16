@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "https://carveo-portaluii.vercel.app/")
+@CrossOrigin(origins = "http://localhost:5173")
 @RequestMapping("/residents")
 public class ResidentController {
 
