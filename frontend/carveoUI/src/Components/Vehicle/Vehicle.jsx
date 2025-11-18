@@ -61,7 +61,7 @@ const Vehicle = () => {
 
   return (
     <div className="vehicle-page">
-      <h2 className="vehicle-title">Vehicle Details</h2>
+      <h2 className="vehicle-title">🚘Vehicle Details</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (

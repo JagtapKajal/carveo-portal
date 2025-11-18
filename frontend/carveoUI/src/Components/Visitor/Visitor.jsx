@@ -71,7 +71,7 @@ const Visitor = () => {
 
   return (
     <div className="visitor-page">
-      <h2 className="visitor-title">Visitor Details</h2>
+      <h2 className="visitor-title">👨‍👩‍👧Visitor Details</h2>
 
       {/* ✅ Search bar (left) + Add button (right) */}
       <div className="table-header">

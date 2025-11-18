@@ -87,9 +87,9 @@ const Resident = () => {
 
   return (
     <div className="resident-page">
-      <h2>Resident Details</h2>
+      <h2>🏠Resident Details</h2>
 
-      {/* ✅ Search Bar */}
+      {/* Search Bar */}
       <input
         type="text"
         placeholder="Search Here..."
