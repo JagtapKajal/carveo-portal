@@ -2,6 +2,8 @@ package carveo_portal.carveoManagement.service;
 
 import carveo_portal.carveoManagement.entity.User;
 import carveo_portal.carveoManagement.repository.UserRepository;
+import carveo_portal.carveoManagement.security.UserPrincipal;
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import io.swagger.v3.oas.annotations.servers.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,9 +25,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-       Optional<User> byUserName = userRepository.findByUsername(username);
-        if(byUserName.isEmpty()) throw new UsernameNotFoundException("user not found");
-        return byUserName;
+       Optional<User> user = userRepository.findByUsername(username);
+        if(user.isEmpty()) throw new UsernameNotFoundException("user not found");
+        return new UserPrincipal(user.get());
 
     }
 }
