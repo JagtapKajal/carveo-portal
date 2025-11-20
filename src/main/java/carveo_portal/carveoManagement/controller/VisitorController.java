@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -27,6 +28,7 @@ public class VisitorController {
     private VisitorService visitorService;
 
     // API to add/save  Visitor in DB
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/addVisitor")
     public ResponseEntity<String> addVisitors(@Valid @RequestBody VisitorRequestDTO visitorRequestDTO) {
         visitorService.addVisitor(visitorRequestDTO);
@@ -92,6 +94,7 @@ public class VisitorController {
 
     //API to delete visitor
     @DeleteMapping("/deleteVisitor/{id}")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     public ResponseEntity<String> DeleteVisitorById(@PathVariable("id") int id){
         String deleteVisitor = visitorService.deleteVisitors(id);
         return new ResponseEntity<>(deleteVisitor,HttpStatus.OK);
