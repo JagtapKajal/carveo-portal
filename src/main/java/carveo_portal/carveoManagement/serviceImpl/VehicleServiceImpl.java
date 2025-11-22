@@ -1,7 +1,7 @@
 package carveo_portal.carveoManagement.serviceImpl;
 
 import carveo_portal.carveoManagement.service.VehicleService;
-import carveo_portal.carveoManagement.VehicleDTO;
+import carveo_portal.carveoManagement.dto.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Resident;
 import carveo_portal.carveoManagement.entity.Vehicle;
 import carveo_portal.carveoManagement.exceptionHandling.ResourceNotFoundException;

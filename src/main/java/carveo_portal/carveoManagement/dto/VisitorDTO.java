@@ -1,4 +1,4 @@
-package carveo_portal.carveoManagement;
+package carveo_portal.carveoManagement.dto;
 
 import carveo_portal.carveoManagement.enums.VisitorType;
 import org.springframework.stereotype.Component;

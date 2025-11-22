@@ -1,9 +1,8 @@
 package carveo_portal.carveoManagement.controller;
 
 import carveo_portal.carveoManagement.service.VehicleService;
-import carveo_portal.carveoManagement.VehicleDTO;
+import carveo_portal.carveoManagement.dto.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Vehicle;
-import carveo_portal.carveoManagement.serviceImpl.VehicleServiceImpl;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

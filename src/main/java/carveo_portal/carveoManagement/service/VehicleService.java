@@ -1,9 +1,7 @@
 package carveo_portal.carveoManagement.service;
 
-import carveo_portal.carveoManagement.VehicleDTO;
-import carveo_portal.carveoManagement.entity.Resident;
+import carveo_portal.carveoManagement.dto.VehicleDTO;
 import carveo_portal.carveoManagement.entity.Vehicle;
-import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 

@@ -1,8 +1,8 @@
 package carveo_portal.carveoManagement.service;
 
-import carveo_portal.carveoManagement.VisitorDTO;
-import carveo_portal.carveoManagement.VisitorRequestDTO;
-import carveo_portal.carveoManagement.VisitorWithResidentDTO;
+import carveo_portal.carveoManagement.dto.VisitorDTO;
+import carveo_portal.carveoManagement.dto.VisitorRequestDTO;
+import carveo_portal.carveoManagement.dto.VisitorWithResidentDTO;
 import carveo_portal.carveoManagement.entity.Visitor;
 import carveo_portal.carveoManagement.enums.VisitorType;
 
