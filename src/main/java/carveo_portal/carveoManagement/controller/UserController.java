@@ -2,6 +2,7 @@ package carveo_portal.carveoManagement.controller;
 
 import carveo_portal.carveoManagement.dto.UserDTO;
 import carveo_portal.carveoManagement.entity.User;
+import carveo_portal.carveoManagement.security.JwtUtil;
 import carveo_portal.carveoManagement.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,9 @@ import java.util.List;
 public class UserController {
 
     @Autowired
+    private JwtUtil jwtUtil;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -44,6 +48,6 @@ public class UserController {
         List<String> roles = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList();
 
        UserDetails userDetails =  userService.loadUserByUsername(user.getUsername());
-
+        return jwtUtil.generateToken(userDetails.getUsername(),roles);
     }
 }
