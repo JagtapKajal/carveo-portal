@@ -32,13 +32,13 @@ public class JwtUtil {
         return Jwts.builder().setSubject(username).claim("roles", roles)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000*60*2))
-                .signWith(getSignKeyedKey(), SignatureAlgorithm.HS256)
+                .signWith(getSignedKey(), SignatureAlgorithm.HS256)
                 .compact();
 
 
     }
 
-    private Key getSignKeyedKey(){
+    private Key getSignedKey(){
         byte[] keyBytes = Decoders.BASE64.decode(secreteKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
