@@ -49,5 +49,6 @@ public class UserController {
 
        UserDetails userDetails =  userService.loadUserByUsername(user.getUsername());
         return jwtUtil.generateToken(userDetails.getUsername(),roles);
+
     }
 }
