@@ -33,7 +33,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-
     @PostMapping("/register")
     public User register(@RequestBody User user) {
         return userService.createUser(user);
